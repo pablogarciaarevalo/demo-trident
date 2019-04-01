@@ -10,6 +10,8 @@ rhel2
 rhel3
 EOT
 
+export ANSIBLE_HOST_KEY_CHECKING=False
+
 ansible-playbook configure_ontap_svm_for_iscsi.yml
 ansible-playbook connect_iscsi_initiators.yml
 
