@@ -1,0 +1,19 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: pvpod-nas1-clone
+spec:
+  volumes:
+    - name: task-pv-clone-storage
+      persistentVolumeClaim:
+       claimName: persistent-volume-claim-nas-clone
+  containers:
+    - name: task-pv-clone-container
+      image: alpine:3.2
+      command:
+        - /bin/sh
+        - "-c"
+        - "sleep 60m"
+      volumeMounts:
+        - mountPath: "/data"
+          name: task-pv-clone-storage

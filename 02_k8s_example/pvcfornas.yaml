@@ -1,0 +1,14 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: persistent-volume-claim-nas
+  annotations:
+     trident.netapp.io/snapshotPolicy: "default"
+     trident.netapp.io/snapshotDirectory: "true"
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: storage-class-nas
