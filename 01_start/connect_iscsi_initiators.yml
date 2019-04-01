@@ -1,0 +1,16 @@
+- name: Discover and connect iscsi initiator
+  hosts:
+      rhel1
+      rhel2
+      rhel3
+  tasks:
+    - name: Enable iSCSI protocol
+      open_iscsi:
+          show_nodes: yes
+          discover: yes
+          login: yes
+          portal: 192.168.0.45
+
+
+		  
+		  
