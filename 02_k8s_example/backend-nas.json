@@ -11,7 +11,7 @@
      "limitVolumeSize": "50Gi",
       "defaults": {
           "spaceReserve": "volume",
-          "exportPolicy": "kubernetes",
+          "exportPolicy": "default",
           "snapshotPolicy": "default",
           "snapshotReserve": "10"
                    }

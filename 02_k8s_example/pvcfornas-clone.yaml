@@ -12,4 +12,5 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: storage-class-nas
+  storageClassName: nas-silver
+  

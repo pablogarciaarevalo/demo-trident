@@ -9,3 +9,4 @@ parameters:
   media: "ssd"
   provisioningType: "thick"
   encryption: "true"
+  
