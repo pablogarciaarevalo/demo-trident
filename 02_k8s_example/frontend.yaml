@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: frontend-service
+spec:
+  ports:
+  - port: 80
+    name: web
+  clusterIP: None
+  selector:
+    app: frontend
+---
+apiVersion: apps/v1
+metadata:
+  name: frontend
+  labels:
+      app: frontend
+kind: frontendSet
+spec:
+  serviceName: frontend-service
+  replicas: 3
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.8
+        volumeMounts:
+          - name: my-pvc-nfs
+            mountPath: /mnt
+        ports:
+        - containerPort: 80
+          name: web
+      volumes:
+      - name: my-pvc-nfs
+        persistentVolumeClaim:
+          claimName: persistent-volume-claim-nas
