@@ -2,10 +2,12 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: persistent-volume-claim-san
+  annotations:
+     trident.netapp.io/reclaimPolicy: "Delete"
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: san
   resources:
     requests:
       storage: 1Gi
-  storageClassName: storage-class-san

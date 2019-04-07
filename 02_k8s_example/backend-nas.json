@@ -1,18 +1,18 @@
 {
     "version": 1,
-    "storageDriverName": "ontap-san",
-    "backendName": "BackendForSAN",
+    "storageDriverName": "ontap-nas",
+    "backendName": "BackendForNAS",
     "managementLIF": "192.168.0.135",
-    "dataLIF": "192.168.0.45",
+    "dataLIF": "192.168.0.132",
     "svm": "svm1",
-    "igroupName": "k8s",
     "username": "vsadmin",
     "password": "Netapp1!",
      "limitAggregateUsage": "80%",
      "limitVolumeSize": "50Gi",
       "defaults": {
           "spaceReserve": "volume",
+          "exportPolicy": "kubernetes",
           "snapshotPolicy": "default",
           "snapshotReserve": "10"
                    }
-}
+ }
