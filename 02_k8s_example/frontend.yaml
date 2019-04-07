@@ -15,7 +15,7 @@ metadata:
   name: frontend
   labels:
       app: frontend
-kind: frontendSet
+kind: StatefulSet
 spec:
   serviceName: frontend-service
   replicas: 3
