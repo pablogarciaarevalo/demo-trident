@@ -1,0 +1,22 @@
+- name: Configure a snapmirror relationship
+  hosts: localhost
+  gather_facts: no
+  connection: local
+
+  vars:
+    netapp_hostname: 192.168.0.101
+    netapp_username: admin
+    netapp_password: Netapp1!
+  tasks:
+    - name: Create SnapMirror
+      na_ontap_snapmirror:
+        state: present
+        source_volume: 
+        destination_volume: default_persistent_volume_claim_nas_replica
+        source_vserver: svm1
+        destination_vserver: cloud_volumes_ontap
+        hostname: "{{ netapp_hostname }}"
+        username: "{{ netapp_username }}"
+        password: "{{ netapp_password }}"
+        https: true
+        validate_certs: false
