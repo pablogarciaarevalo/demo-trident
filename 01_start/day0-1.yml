@@ -1,0 +1,4 @@
+# Configure ONTAP SVM for NFS & iSCSI protocol and enable the connection for the K8S workers
+
+- include configure_ontap_svm_for_iscsi.yml
+- include connect_iscsi_initiators.yml
