@@ -44,16 +44,6 @@
         username: "{{ netapp_username }}"
         password: "{{ netapp_password }}"
         https: true
-        validate_certs: false
-    - name: Enable iscsi service
-      na_ontap_iscsi:
-        state: present
-        service_state: started
-        vserver: svm1
-        hostname: "{{ netapp_hostname }}"
-        username: "{{ netapp_username }}"
-        password: "{{ netapp_password }}"
-        https: true
         validate_certs: false        
     - name: Create Igroup for rhel1 server
       na_ontap_igroup:
