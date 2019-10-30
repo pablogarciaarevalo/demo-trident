@@ -11,8 +11,8 @@
     - name: Create SnapMirror
       na_ontap_snapmirror:
         state: present
-        source_volume: 
-        destination_volume: default_persistent_volume_claim_nas_replica
+        source_volume: <replace_here>
+        destination_volume: trident_default_persistent_volume_claim_dest
         source_vserver: svm1
         destination_vserver: cloud_volumes_ontap
         hostname: "{{ netapp_hostname }}"
