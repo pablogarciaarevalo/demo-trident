@@ -13,7 +13,6 @@ EOT
 export ANSIBLE_HOST_KEY_CHECKING=False
 
 kubectl delete sc storage-class-nas
-kubectl delete sc storage-class-san
 kubectl delete sc storage-class-solidfire
 kubectl delete sc storage-class-ssd
 kubectl delete sc storage-class-storagepool
@@ -27,11 +26,7 @@ kubectl delete sc solidfire-silver-three
 
 
 tridentctl delete backend BackendForNAS -n trident
-tridentctl delete backend solidfire_192.168.0.130 -n trident
 tridentctl delete backend BackendForSolidFire -n trident
-
-tridentctl create backend --filename ./02_k8s_example/backend-nas.json -n trident
-tridentctl create backend --filename ./02_k8s_example/backend-san.json -n trident
 
 kubectl create -f ./02_k8s_example/sc-san.yaml
 kubectl create -f ./02_k8s_example/sc-nas-gold.yaml
