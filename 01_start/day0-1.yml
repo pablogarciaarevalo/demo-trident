@@ -1,4 +1,130 @@
-# Configure ONTAP SVM for NFS & iSCSI protocol and enable the connection for the K8S workers
+# Configure ONTAP SVM for NFS & iSCSI protocol
 
-- include configure_ontap_svm_for_iscsi.yml
-- include connect_iscsi_initiators.yml
+- name: Configure an ONTAP SVM for iSCSI protocol
+  hosts: localhost
+  gather_facts: no
+  connection: local
+
+  vars:
+    netapp_hostname: 192.168.0.101
+    netapp_username: admin
+    netapp_password: Netapp1!
+  tasks:
+    - name: Enable iSCSI protocol
+      na_ontap_svm:
+        state: present
+        name: svm1
+        allowed_protocols: nfs,iscsi
+        hostname: "{{ netapp_hostname }}"
+        username: "{{ netapp_username }}"
+        password: "{{ netapp_password }}"
+        https: true
+        validate_certs: false
+    - name: Create interface
+      na_ontap_interface:
+        state: present
+        interface_name: svm1_iscsi
+        home_port: e0d
+        home_node: cluster1-01
+        role: data
+        protocols: iscsi
+        admin_status: up
+        address: 192.168.0.45
+        netmask: 255.255.255.0
+        vserver: svm1
+        hostname: "{{ netapp_hostname }}"
+        username: "{{ netapp_username }}"
+        password: "{{ netapp_password }}"
+        https: true
+        validate_certs: false
+    - name: Enable iscsi service
+      na_ontap_iscsi:
+        state: present
+        service_state: started
+        vserver: svm1
+        hostname: "{{ netapp_hostname }}"
+        username: "{{ netapp_username }}"
+        password: "{{ netapp_password }}"
+        https: true
+        validate_certs: false        
+    - name: Create Igroup for rhel1 server
+      na_ontap_igroup:
+        state: present
+        name: k8s
+        initiator_group_type: iscsi
+        ostype: linux
+        initiator: iqn.1994-05.com.redhat:rhel1.demo.netapp.com
+        vserver: svm1
+        hostname: "{{ netapp_hostname }}"
+        username: "{{ netapp_username }}"
+        password: "{{ netapp_password }}"
+        https: true
+        validate_certs: false   
+    - name: Create Igroup for rhel2 server
+      na_ontap_igroup:
+        state: present
+        name: k8s
+        initiator_group_type: iscsi
+        ostype: linux
+        initiator: iqn.1994-05.com.redhat:rhel2.demo.netapp.com
+        vserver: svm1
+        hostname: "{{ netapp_hostname }}"
+        username: "{{ netapp_username }}"
+        password: "{{ netapp_password }}"
+        https: true
+        validate_certs: false
+    - name: Create Igroup for rhel3 server
+      na_ontap_igroup:
+        state: present
+        name: k8s
+        initiator_group_type: iscsi
+        ostype: linux
+        initiator: iqn.1994-05.com.redhat:rhel3.demo.netapp.com
+        vserver: svm1
+        hostname: "{{ netapp_hostname }}"
+        username: "{{ netapp_username }}"
+        password: "{{ netapp_password }}"
+        https: true
+        validate_certs: false   
+    - name: Create destination SVM
+      na_ontap_svm:
+        state: present
+        name: cloud_volumes_ontap
+        root_volume: root
+        root_volume_aggregate: aggr1
+        root_volume_security_style: unix
+        hostname: "{{ netapp_hostname }}"
+        username: "{{ netapp_username }}"
+        password: "{{ netapp_password }}"
+        https: true
+        validate_certs: false
+    - name: Create FlexVol
+      na_ontap_volume:
+        state: present
+        name: trident_default_persistent_volume_claim_dest
+        is_infinite: False
+        aggregate_name: aggr1
+        size: 1
+        size_unit: gb
+        type: DP
+        vserver: cloud_volumes_ontap
+        hostname: "{{ netapp_hostname }}"
+        username: "{{ netapp_username }}"
+        password: "{{ netapp_password }}"
+        https: true
+        validate_certs: false
+
+
+# Enable the connection for the K8S workers
+- name: Discover and connect iscsi initiator
+  hosts:
+      rhel1
+      rhel2
+      rhel3
+  tasks:
+    - name: Enable iSCSI protocol
+      open_iscsi:
+          show_nodes: yes
+          discover: yes
+          login: yes
+          portal: 192.168.0.45
