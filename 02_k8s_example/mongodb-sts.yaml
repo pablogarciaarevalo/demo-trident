@@ -64,4 +64,4 @@ spec:
       resources:
         requests:
           storage: 1Gi
-      storageClassName: nas-silver
+      storageClassName: san
