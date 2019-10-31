@@ -1,0 +1,62 @@
+# Configure a destination ONTAP SVM and run a SnapMirror relationship
+# Replace <replace_here> with the volume name in the source volume to protect variable
+
+- name: Configure a snapmirror relationship
+  hosts: localhost
+  gather_facts: no
+  connection: local
+
+  vars:
+    netapp_hostname: 192.168.0.101
+    netapp_username: admin
+    netapp_password: Netapp1!
+    source_volume_to_protect: <replace_here>
+  tasks:
+    - name: Create destination SVM
+      na_ontap_svm:
+        state: present
+        name: cloud_volumes_ontap
+        root_volume: root
+        root_volume_aggregate: aggr1
+        root_volume_security_style: unix
+        hostname: "{{ netapp_hostname }}"
+        username: "{{ netapp_username }}"
+        password: "{{ netapp_password }}"
+        https: true
+        validate_certs: false
+    - name: Create FlexVol
+      na_ontap_volume:
+        state: present
+        name: trident_default_persistent_volume_claim_dest
+        is_infinite: False
+        aggregate_name: aggr1
+        size: 1
+        size_unit: gb
+        type: DP
+        vserver: cloud_volumes_ontap
+        hostname: "{{ netapp_hostname }}"
+        username: "{{ netapp_username }}"
+        password: "{{ netapp_password }}"
+        https: true
+        validate_certs: false
+    - name: Create SVM peering
+      na_ontap_command:
+        hostname: "{{ netapp_hostname }}"
+        username: "{{ netapp_username }}"
+        password: "{{ netapp_password }}"
+        command: ['vserver', 'peer', 'create', '-vserver', 'svm1', '-peer-vserver', 'cloud_volumes_ontap', '-applications', 'snapmirror']
+        privilege: 'admin'
+        https: true
+        validate_certs: false
+    - name: Create SnapMirror
+      na_ontap_snapmirror:
+        state: present
+        source_volume: "{{ source_volume_to_protect }}"
+        destination_volume: trident_default_persistent_volume_claim_dest
+        source_vserver: svm1
+        destination_vserver: cloud_volumes_ontap
+        hostname: "{{ netapp_hostname }}"
+        username: "{{ netapp_username }}"
+        password: "{{ netapp_password }}"
+        https: true
+        validate_certs: false

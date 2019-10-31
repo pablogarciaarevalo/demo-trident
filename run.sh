@@ -28,11 +28,11 @@ kubectl delete sc solidfire-silver-three
 tridentctl delete backend BackendForNAS -n trident
 tridentctl delete backend BackendForSolidFire -n trident
 
-kubectl create -f ./02_k8s_example/sc-san.yaml
-kubectl create -f ./02_k8s_example/sc-nas-gold.yaml
-kubectl create -f ./02_k8s_example/sc-nas-silver.yaml
+kubectl create -f ./k8s_files/sc-san.yaml
+kubectl create -f ./k8s_files/sc-nas-gold.yaml
+kubectl create -f ./k8s_files/sc-nas-silver.yaml
 
-kubectl create -f ./02_k8s_example/snap-sc.yaml
+kubectl create -f ./k8s_files/snap-sc.yaml
 
 kubectl patch storageclass san -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 
