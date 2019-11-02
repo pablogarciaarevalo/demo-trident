@@ -36,8 +36,6 @@ kubectl create -f ./k8s_files/snap-sc.yaml
 
 kubectl patch storageclass san -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 
-tridentctl create backend --filename ./k8s_files/backend-nas.json -n trident
-tridentctl create backend --filename ./k8s_files/backend-san.json -n trident
 
 export ANSIBLE_HOST_KEY_CHECKING=False
 
