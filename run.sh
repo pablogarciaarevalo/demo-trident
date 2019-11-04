@@ -36,6 +36,3 @@ kubectl create -f ./k8s_files/snap-sc.yaml
 
 kubectl patch storageclass san -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 
-
-export ANSIBLE_HOST_KEY_CHECKING=False
-
