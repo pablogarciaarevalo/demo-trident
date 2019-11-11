@@ -92,7 +92,6 @@
   hosts:
       rhel1
       rhel2
-      rhel3
   tasks:
     - name: Enable iSCSI protocol
       open_iscsi:

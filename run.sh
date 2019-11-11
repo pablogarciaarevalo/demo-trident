@@ -7,7 +7,6 @@ cat <<EOT >> /etc/ansible/hosts
 [k8sservers]
 rhel1
 rhel2
-rhel3
 EOT
 
 export ANSIBLE_HOST_KEY_CHECKING=False
