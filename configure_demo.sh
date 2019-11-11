@@ -38,6 +38,13 @@ kubectl patch storageclass san -p '{"metadata": {"annotations":{"storageclass.ku
 # Simulate OpenShift cli
 alias oc=kubectl
 
-chmod 744 * examples/
+chmod 744 * ./examples/01_create_k8s_backends.sh
+chmod 744 * ./examples/02_check_k8s_storageclasses.sh
+chmod 744 * ./examples/03_create_pvc.sh
+chmod 744 * ./examples/04_create_pods.sh
+chmod 744 * ./examples/05_scale_pods_manually.sh
+chmod 744 * ./examples/06_create_ondemand_snapshot.sh
+chmod 744 * ./examples/07_create_frontend_service.sh
+chmod 744 * ./examples/08_create_backend_service.sh
 
 
