@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-    name: web
+    name: web-v1
 spec:
   ports:
   - port: 80
@@ -10,24 +10,24 @@ spec:
     targetPort: 80
   type: LoadBalancer
   selector:
-    app: web
+    app: web-v1
 ---
 apiVersion: apps/v1
 metadata:
-  name: web
+  name: web-v1
   labels:
-      app: web
+      app: web-v1
 kind: StatefulSet
 spec:
-  serviceName: web-service
+  serviceName: web-service-v1
   replicas: 1
   selector:
     matchLabels:
-      app: web
+      app: web-v1
   template:
     metadata:
       labels:
-        app: web
+        app: web-v1
     spec:
       containers:
       - name: nginx
@@ -37,8 +37,8 @@ spec:
             mountPath: /usr/share/nginx/html
         ports:
         - containerPort: 80
-          name: web
+          name: web-v1
       volumes:
       - name: my-pvc-nfs
         persistentVolumeClaim:
-          claimName: web-content
+          claimName: web-content-v1

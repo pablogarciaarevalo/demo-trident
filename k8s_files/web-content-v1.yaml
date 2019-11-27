@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: web-content
+  name: web-content-v1
   namespace: web
 spec:
   accessModes:

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: web-content-v2
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Ti
+  storageClassName: nas-silver
+  dataSource:
+    name: web-content-snap1
+    kind: VolumeSnapshot
+    apiGroup: snapshot.storage.k8s.io

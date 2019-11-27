@@ -49,3 +49,7 @@ chmod 744 * ./examples/08_create_backend_service.sh
 
 kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.8.3/manifests/metallb.yaml
 kubectl apply -f ./k8s_files/metailb-configmap.yml
+
+yes | cp ./k8s_files/kube-apiserver.yaml /etc/kubernetes/manifests/
+yes | cp ./k8s_files/kube-controller-manager.yaml /etc/kubernetes/manifests/
+yes | cp ./k8s_files/kube-scheduler.yaml /etc/kubernetes/manifests/
