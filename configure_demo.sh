@@ -47,4 +47,5 @@ chmod 744 * ./examples/06_create_ondemand_snapshot.sh
 chmod 744 * ./examples/07_create_frontend_service.sh
 chmod 744 * ./examples/08_create_backend_service.sh
 
-
+kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.8.3/manifests/metallb.yaml
+kubectl apply -f ./k8s_files/metailb-configmap.yml
