@@ -1,0 +1,79 @@
+/*
+ * The Typekit service used to deliver this font or fonts for use on websites
+ * is provided by Adobe and is subject to these Terms of Use
+ * http://www.adobe.com/products/eulas/tou_typekit. For font license
+ * information, see the list below.
+ *
+ * proxima-nova:
+ *   - http://typekit.com/eulas/00000000000000003b9b093b
+ *   - http://typekit.com/eulas/00000000000000003b9b093c
+ *   - http://typekit.com/eulas/00000000000000003b9b0939
+ *   - http://typekit.com/eulas/00000000000000003b9b0934
+ *   - http://typekit.com/eulas/00000000000000003b9b0932
+ *   - http://typekit.com/eulas/00000000000000003b9b0936
+ *
+ * © 2009-2019 Adobe Systems Incorporated. All Rights Reserved.
+ */
+/*{"last_published":"2018-12-19 20:39:02 UTC"}*/
+
+@import url("https://web.archive.org/web/20191004045301cs_/https://p.typekit.net/p.css?s=1&k=axj8dlz&ht=tk&f=139.169.173.175.5474.25136&a=15500433&app=typekit&e=css");
+
+@font-face {
+font-family:"proxima-nova";
+src:url("https://web.archive.org/web/20191004045301im_/https://use.typekit.net/af/71f83c/00000000000000003b9b093b/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("woff2"),url("https://web.archive.org/web/20191004045301im_/https://use.typekit.net/af/71f83c/00000000000000003b9b093b/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("woff"),url("https://web.archive.org/web/20191004045301im_/https://use.typekit.net/af/71f83c/00000000000000003b9b093b/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("opentype");
+font-display:auto;font-style:normal;font-weight:700;
+}
+
+@font-face {
+font-family:"proxima-nova";
+src:url("https://web.archive.org/web/20191004045301im_/https://use.typekit.net/af/a3eee8/00000000000000003b9b093c/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n8&v=3") format("woff2"),url("https://web.archive.org/web/20191004045301im_/https://use.typekit.net/af/a3eee8/00000000000000003b9b093c/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n8&v=3") format("woff"),url("https://web.archive.org/web/20191004045301im_/https://use.typekit.net/af/a3eee8/00000000000000003b9b093c/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n8&v=3") format("opentype");
+font-display:auto;font-style:normal;font-weight:800;
+}
+
+@font-face {
+font-family:"proxima-nova";
+src:url("https://web.archive.org/web/20191004045301im_/https://use.typekit.net/af/27776b/00000000000000003b9b0939/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3") format("woff2"),url("https://web.archive.org/web/20191004045301im_/https://use.typekit.net/af/27776b/00000000000000003b9b0939/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3") format("woff"),url("https://web.archive.org/web/20191004045301im_/https://use.typekit.net/af/27776b/00000000000000003b9b0939/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3") format("opentype");
+font-display:auto;font-style:normal;font-weight:600;
+}
+
+@font-face {
+font-family:"proxima-nova";
+src:url("https://web.archive.org/web/20191004045301im_/https://use.typekit.net/af/4838bd/00000000000000003b9b0934/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff2"),url("https://web.archive.org/web/20191004045301im_/https://use.typekit.net/af/4838bd/00000000000000003b9b0934/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff"),url("https://web.archive.org/web/20191004045301im_/https://use.typekit.net/af/4838bd/00000000000000003b9b0934/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("opentype");
+font-display:auto;font-style:normal;font-weight:400;
+}
+
+@font-face {
+font-family:"proxima-nova";
+src:url("https://web.archive.org/web/20191004045301im_/https://use.typekit.net/af/437c3d/00000000000000003b9b0932/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n3&v=3") format("woff2"),url("https://web.archive.org/web/20191004045301im_/https://use.typekit.net/af/437c3d/00000000000000003b9b0932/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n3&v=3") format("woff"),url("https://web.archive.org/web/20191004045301im_/https://use.typekit.net/af/437c3d/00000000000000003b9b0932/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n3&v=3") format("opentype");
+font-display:auto;font-style:normal;font-weight:300;
+}
+
+@font-face {
+font-family:"proxima-nova";
+src:url("https://web.archive.org/web/20191004045301im_/https://use.typekit.net/af/3331e6/00000000000000003b9b0936/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff2"),url("https://web.archive.org/web/20191004045301im_/https://use.typekit.net/af/3331e6/00000000000000003b9b0936/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff"),url("https://web.archive.org/web/20191004045301im_/https://use.typekit.net/af/3331e6/00000000000000003b9b0936/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("opentype");
+font-display:auto;font-style:normal;font-weight:500;
+}
+
+.tk-proxima-nova { font-family: "proxima-nova",sans-serif; }
+
+/*
+     FILE ARCHIVED ON 04:53:01 Oct 04, 2019 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 17:36:40 Nov 27, 2019.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  LoadShardBlock: 161.592 (3)
+  exclusion.robots: 0.26
+  load_resource: 11972.522
+  PetaboxLoader3.resolve: 11495.024 (2)
+  CDXLines.iter: 27.067 (3)
+  RedisCDXSource: 5.485
+  esindex: 0.02
+  PetaboxLoader3.datanode: 630.317 (5)
+  exclusion.robots.policy: 0.239
+  captures_list: 207.735
+*/

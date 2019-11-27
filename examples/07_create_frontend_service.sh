@@ -1,7 +1,8 @@
 clear
 echo "[root@rhel3 ~]# cat ../k8s_files/frontend.yaml"
 cat ../k8s_files/frontend.yaml
-read -p "Press any key to continue... " -n1 -s
+recho ""
+ead -p "Press any key to continue... " -n1 -s
 clear
 echo "[root@rhel3 ~]# kubectl create -f ../k8s_files/frontend.yaml"
 kubectl create -f ../k8s_files/frontend.yaml

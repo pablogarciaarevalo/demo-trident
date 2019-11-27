@@ -1,10 +1,12 @@
 clear
 echo "[root@rhel3 ~]# cat ../k8s_files/backend-san.json"
 cat ../k8s_files/backend-san.json
+echo ""
 read -p "Press any key to continue... " -n1 -s
 clear
 echo "[root@rhel3 ~]# cat ../k8s_files/backend-nas.json"
 cat ../k8s_files/backend-nas.json
+echo ""
 read -p "Press any key to continue... " -n1 -s
 clear
 echo "[root@rhel3 ~]# tridentctl create backend --filename ../k8s_files/backend-nas.json -n trident"
