@@ -48,6 +48,7 @@ chmod 744 * ./examples/07_create_backend_service.sh
 chmod 744 * ./examples/08_import_web_service.sh
 chmod 744 * ./examples/09_create_ondemand_snapshot.sh
 chmod 744 * ./examples/10_create_staging_web_service.sh
+chmod 744 * ./examples/11_coding_new_website.sh
 
 kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.8.3/manifests/metallb.yaml
 kubectl apply -f ./k8s_files/metailb-configmap.yaml

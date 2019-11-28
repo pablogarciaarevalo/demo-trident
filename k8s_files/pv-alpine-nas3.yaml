@@ -1,12 +1,12 @@
 kind: Pod
 apiVersion: v1
 metadata:
-  name: pvpod-san2
+  name: pvpod-nas2
 spec:
   volumes:
     - name: task-pv-storage
       persistentVolumeClaim:
-       claimName: persistent-volume-claim-san
+       claimName: persistent-volume-claim-nas
   containers:
     - name: task-pv-container
       image: alpine:3.2
@@ -17,4 +17,4 @@ spec:
       volumeMounts:
         - mountPath: "/data"
           name: task-pv-storage
-  nodeName: rhel1
+  nodeName: rhel2
