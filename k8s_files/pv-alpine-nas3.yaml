@@ -1,7 +1,7 @@
 kind: Pod
 apiVersion: v1
 metadata:
-  name: pvpod-nas2
+  name: pvpod-nas3
 spec:
   volumes:
     - name: task-pv-storage

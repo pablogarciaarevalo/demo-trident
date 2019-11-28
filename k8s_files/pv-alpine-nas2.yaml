@@ -17,4 +17,4 @@ spec:
       volumeMounts:
         - mountPath: "/data"
           name: task-pv-storage
-  nodeName: rhel2
+  nodeName: rhel1
