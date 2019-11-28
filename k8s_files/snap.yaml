@@ -5,5 +5,5 @@ metadata:
 spec:
  snapshotClassName: csi-snapclass
  source:
-    name: web-content
+    name: web-content-v1
     kind: PersistentVolumeClaim

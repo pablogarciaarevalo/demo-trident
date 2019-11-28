@@ -43,12 +43,14 @@ chmod 744 * ./examples/02_check_k8s_storageclasses.sh
 chmod 744 * ./examples/03_create_pvc.sh
 chmod 744 * ./examples/04_create_pods.sh
 chmod 744 * ./examples/05_scale_pods_manually.sh
-chmod 744 * ./examples/06_create_ondemand_snapshot.sh
-chmod 744 * ./examples/07_create_frontend_service.sh
-chmod 744 * ./examples/08_create_backend_service.sh
+chmod 744 * ./examples/06_create_frontend_service.sh
+chmod 744 * ./examples/07_create_backend_service.sh
+chmod 744 * ./examples/08_import_web_service.sh
+chmod 744 * ./examples/09_create_ondemand_snapshot.sh
+chmod 744 * ./examples/10_create_staging_web_service.sh
 
 kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.8.3/manifests/metallb.yaml
-kubectl apply -f ./k8s_files/metailb-configmap.yml
+kubectl apply -f ./k8s_files/metailb-configmap.yaml
 
 yes | cp ./k8s_files/kube-apiserver.yaml /etc/kubernetes/manifests/
 yes | cp ./k8s_files/kube-controller-manager.yaml /etc/kubernetes/manifests/
