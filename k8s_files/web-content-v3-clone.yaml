@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: web-content-v3-clone
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: san
+  dataSource:
+    name: web-content-v3-snap1
+    kind: VolumeSnapshot
+    apiGroup: snapshot.storage.k8s.io

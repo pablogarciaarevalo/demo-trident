@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: web-v3
+spec:
+  ports:
+  - port: 80
+    name: web
+    protocol: TCP
+    targetPort: 80
+  type: LoadBalancer
+  selector:
+    app: web-v3
+---
+apiVersion: apps/v1
+metadata:
+  name: web-v3
+  labels:
+      app: web-v3
+kind: StatefulSet
+spec:
+  serviceName: web-service-v3
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-v3
+  template:
+    metadata:
+      labels:
+        app: web-v3
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.8
+        volumeMounts:
+          - name: clone-pvc
+            mountPath: /usr/share/nginx/html
+        ports:
+        - containerPort: 80
+          name: web-v3
+  volumeClaimTemplates:
+    - metadata:
+      name: clone-pvc
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
+      storageClassName: san
+      dataSource:
+        name: web-content-v3-snap1
+        kind: VolumeSnapshot
+        apiGroup: snapshot.storage.k8s.io
+
