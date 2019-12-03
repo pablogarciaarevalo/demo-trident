@@ -3,7 +3,6 @@ kind: StorageClass
 metadata:
   name: nas-gold
 provisioner: csi.trident.netapp.io
-allowVolumeExpansion: true
 parameters:
   backendType: "ontap-nas"
   media: "ssd"
