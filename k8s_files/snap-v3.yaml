@@ -1,9 +1,0 @@
-apiVersion: snapshot.storage.k8s.io/v1alpha1
-kind: VolumeSnapshot
-metadata:
- name: web-content-v3-snap1
-spec:
- snapshotClassName: csi-snapclass
- source:
-    name: web-content-v3
-    kind: PersistentVolumeClaim
