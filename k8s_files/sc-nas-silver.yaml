@@ -5,7 +5,7 @@ metadata:
 provisioner: csi.trident.netapp.io
 parameters:
   backendType: "ontap-nas"
-  media: "ssd"
+  media: "vmdisk"
   provisioningType: "thin"
   encryption: "false"
 allowVolumeExpansion: true
