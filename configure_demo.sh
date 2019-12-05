@@ -4,12 +4,16 @@ yum -y install python-pip
 pip install netapp-lib --user
 
 cat <<EOT >> /etc/ansible/hosts
+rhel6
 [k8sservers]
 rhel1
 rhel2
 EOT
 
 export ANSIBLE_HOST_KEY_CHECKING=False
+
+ansible-playbook legacy-website.yaml
+cp -r netapp_website/v1/* /mnt/web_content
 
 kubectl delete sc storage-class-nas
 kubectl delete sc storage-class-solidfire

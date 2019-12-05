@@ -1,0 +1,66 @@
+# Create a volume for the website
+
+- name: Create a volume for the website
+  hosts: localhost
+  gather_facts: no
+  connection: local
+
+  vars:
+    netapp_hostname: 192.168.0.101
+    netapp_username: admin
+    netapp_password: Netapp1!
+    source_volume_to_protect: <replace_here>
+  tasks:
+    - name: Create FlexVol
+      na_ontap_volume:
+        state: present
+        name: web_content
+        is_infinite: False
+        aggregate_name: aggr2
+        space_guarantee: none
+        size: 1
+        size_unit: tb
+        vserver: svm1
+        junction_path: /web_content
+        snapshot_policy: none
+        hostname: "{{ netapp_hostname }}"
+        username: "{{ netapp_username }}"
+        password: "{{ netapp_password }}"
+        https: true
+        validate_certs: false
+
+# Mount the website volume
+- name: Mount the website volume
+  hosts:
+      rhel3
+      rhel6
+  tasks: 
+  - name: Update fstab file 
+    lineinfile: 
+      path: /etc/fstab 
+      line: "192.168.0.132:/web_content /mnt/web_content nfs defaults 0 0" 
+  - name: Verify mount directory exists 
+    file: 
+      path: /mnt/web_content
+      state: directory 
+  - name: Mount nfs export 
+    mount: 
+      state: present
+      path: /mnt/web_content
+      src: 192.168.0.132:/web_content 
+      fstype: nfs
+
+# Run the dockdr nginx container for the legacy website
+
+- name: Run the dockdr nginx container for the legacy website
+  hosts:
+      rhel6
+  tasks: 
+    - name: "Launch legacy website"
+      docker_container:
+        name: docker-nginx
+        image: nginx
+        volumes:
+          - /mnt/web_content:/usr/share/nginx/html"
+        ports:
+          - 80:80
