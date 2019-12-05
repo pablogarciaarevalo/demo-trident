@@ -48,18 +48,3 @@
       path: /mnt/web_content
       src: 192.168.0.132:/web_content 
       fstype: nfs
-
-# Run the docker nginx container for the legacy website
-
-- name: Run the docker nginx container for the legacy website
-  hosts:
-      rhel6
-  tasks: 
-    - name: "Launch legacy website"
-      docker_container:
-        name: docker-nginx
-        image: nginx
-        volumes:
-          - /mnt/web_content:/usr/share/nginx/html"
-        ports:
-          - 80:80
