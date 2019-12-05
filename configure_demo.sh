@@ -12,10 +12,11 @@ EOT
 
 export ANSIBLE_HOST_KEY_CHECKING=False
 
+ansible-playbook legacy-website.yaml
+
 mkdir /mnt/web_content
 mount -t nfs 192.168.0.132:/web_content /mnt/web_content
 cp -r netapp_website/v1/* /mnt/web_content
-ansible-playbook legacy-website.yaml
 docker -H ssh://root@rhel6 run --name docker-nginx -p 80:80 -d -v /mnt/web_content:/usr/share/nginx/html nginx
 
 
