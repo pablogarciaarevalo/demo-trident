@@ -32,7 +32,6 @@
 # Mount the website volume
 - name: Mount the website volume
   hosts:
-      rhel3
       rhel6
   tasks: 
   - name: Update fstab file 
@@ -45,14 +44,14 @@
       state: directory 
   - name: Mount nfs export 
     mount: 
-      state: present
+      state: mounted
       path: /mnt/web_content
       src: 192.168.0.132:/web_content 
       fstype: nfs
 
-# Run the dockdr nginx container for the legacy website
+# Run the docker nginx container for the legacy website
 
-- name: Run the dockdr nginx container for the legacy website
+- name: Run the docker nginx container for the legacy website
   hosts:
       rhel6
   tasks: 
