@@ -35,9 +35,6 @@ kubectl create -f ./k8s_files/snap-sc.yaml
 
 kubectl patch storageclass san -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 
-# Simulate OpenShift cli
-alias oc=kubectl
-
 chmod 744 * ./examples/01_create_k8s_backends.sh
 chmod 744 * ./examples/02_check_k8s_storageclasses.sh
 chmod 744 * ./examples/03_create_pvc.sh
