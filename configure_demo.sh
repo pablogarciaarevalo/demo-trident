@@ -12,7 +12,7 @@ EOT
 
 export ANSIBLE_HOST_KEY_CHECKING=False
 
-ansible-playbook legacy-website.yaml
+ansible-playbook ./ansible_playbooks/legacy-website.yaml
 
 mkdir /mnt/web_content
 mount -t nfs 192.168.0.132:/web_content /mnt/web_content
