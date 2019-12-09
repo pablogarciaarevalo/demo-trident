@@ -1,18 +1,18 @@
 # Demo Trident
-Scripts and ansible playbooks to modify the NetApp Lab on Demand [Using Trident with Kubernetes and ONTAP v3.0](https://labondemand.netapp.com/lab/sl10556) and show the advantages to use ONTAP as a backend storage for Kubernetes and OpenShift
+Scripts and ansible playbooks to modify the NetApp Lab on Demand [Using Trident with Kubernetes and ONTAP v3.0](https://labondemand.netapp.com/lab/sl10556) and show the advantages to use ONTAP as a backend storage for Kubernetes and OpenShift.
 
 ## Preparing the demo
 
 ```shell
-> git clone https://github.com/pablogarciaarevalo/demo-trident
-> cd demo-trident
-> chmod 744 *
-> ./configure_demo.sh
+git clone https://github.com/pablogarciaarevalo/demo-trident
+cd demo-trident
+chmod 744 *
+./configure_demo.sh
 ```
 
 Open the PPT in the browser http://rhel6.demo.netapp.com/demo.pdf
 
-## Module 1: Kubernetes Storage Provisionig with Trident 101
+## Module 1: Kubernetes Storage Provisioning with Trident 101
 
 ### Show the demo kubernetes cluster
 
@@ -104,7 +104,7 @@ kubectl exec -it pvpod-san1 mount | grep /data
 
 ### Scale the Pods manually
 
-- Objetive: Run similar pods binding the same PV on the same and another kubernetes workers. All the pods with RWM PV will be running regardless of the worker on which they are scheduled. Only the pods with RWO scheduled on the worker rhel1 arwill bee running. There is a Multi-Attach error for the volume mount in the pods which are not scheduled in the worker rhel1. ReadWriteMany (RMX) access is for workers not for pods. Focus on that usually the applications need RWM or RWO access. Depends on the application. K8S need unified storage.
+- Objetive: Run similar pods binding the same PV on the same and another kubernetes workers.
 
 Run the below commands:
 
@@ -115,53 +115,64 @@ kubectl get pods -o wide
 kubectl get pods -o wide
 ```
 
+All the pods with RWM PV will be running regardless of the worker on which they are scheduled. Only the pods with RWO scheduled on the worker rhel1 arwill bee running. There is a Multi-Attach error for the volume mount in the pods which are not scheduled in the worker rhel1. ReadWriteMany (RMX) access is for workers not for pods. Focus on that usually the applications need RWM or RWO access. Depends on the application. K8S needs unified storage.
+
 > Go to slide 7
 
 ## Module 2: New tier application architecture with Kubernetes
 
 ### Sample cloud-native application with 10 microservices by GCP 
 
-NEW TIER APPLICATION ARCHITECTURE WITH KUBERNETES
+- Objetive: Data storage is not really important, the applications are. But Trident with the NetApp storage provides some advantages with the ONTAP features that allows the application works better (efficiency, scale, security, portability,...).
 
 > Go to slide 8
 
-Storage is not really important, the applications are. But Trident with NetApp storage provides some advantages with the ONTAP features that allow the application works better (efficiency,...)
+Set focus on the microservices Frontend and Cache (Redis), which can use RWM PV and RWO PV respectively. Again, K8S needs unified storage.
 
-Focus on:
-- Frontend (with external data) -> RWM
-- Cache (Redis) -> RWO
+### Create Kubernetes dummy frontend statefulset with ReadWriteMany Persistent Volume
 
- ---------------------------
-| --> PPT 9, 10	    		|
- ---------------------------
+- Objetive: Show how to create and scale a frontend deployment accessing a single ReadWriteMany Persistent Volume (NFS)
 
-FRONTEND STATEFULSET READWRITEMANY
+> Go to slide 9 and 10
 
+Run the below commands:
 
+```shell
 ./06_create_frontend_service.sh
 
 kubectl get pods -o wide
 kubectl get pvc
 kubectl get pv
+```
 
+Scaling the deployment:
+
+```shell
 kubectl scale --replicas=5 statefulset frontend
 kubectl get pods -o wide
+```
 
+### Create Kubernetes dummy backend statefulset with ReadWriteOnce Persistent Volume
 
-------------------------------------------------------------------------
-DATABASE STATEFULSET READWRITEONCE
+- Objetive: Show how to create and scale a backend deployment accessing a single ReadWriteOnce Persistent Volume (iSCSI)
 
- ---------------------------
-| --> PPT 11 	  			|
- ---------------------------
+> Go to slide 11
 
+Run the below commands:
+
+```shell
 ./07_create_backend_service.sh
 
 kubectl get pods
 kubectl get pvc
+```
 
+Scaling the deployment:
+
+```shell
 kubectl scale --replicas=5 statefulset mongodb
 kubectl get pods 
+```
 
 ## Module 3: Advanced NetApp Trident features
 
