@@ -5,6 +5,8 @@ cd demo-trident
 chmod 744 *
 ./configure_demo.sh
 
+Open the PPT in the browser http://rhel6.demo.netapp.com/demo.pdf
+
 ------------------------------------------------------------------------
 
  ---------------------------
