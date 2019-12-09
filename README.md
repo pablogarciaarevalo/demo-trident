@@ -1,6 +1,12 @@
 # Demo Trident
 Scripts and ansible playbooks to modify the NetApp Lab on Demand [Using Trident with Kubernetes and ONTAP v3.0](https://labondemand.netapp.com/lab/sl10556) and show the advantages to use ONTAP as a backend storage for Kubernetes and OpenShift.
 
+* [Module 1: Deployment & Provisioning](#module-1-deployment--provisioning)
+* [Module 2: Kubernetes Storage Provisioning with Trident 101](#module-2-kubernetes-storage-provisioning-with-trident-101)
+* [Module 3: New tier application architecture with Kubernetes](#module-3-new-tier-application-architecture-with-kubernetes)
+* [Module 4: Advanced NetApp Trident features](#module-4-advanced-netapp-trident-features)
+* [Module 5: Configuration Management](#module-5-configuration-management)
+
 ## Preparing the demo
 
 ```shell
@@ -12,7 +18,7 @@ chmod 744 *
 
 Open the PDF with the images in the browser http://rhel6.demo.netapp.com/demo.pdf
 
-## Module 1: Kubernetes Storage Provisioning with Trident 101
+## Module 1: Deployment & Provisioning
 
 ### Show the demo kubernetes cluster
 
@@ -44,6 +50,8 @@ cat day0-1.yml
 ansible-playbook day0-1.yaml
 cd ..
 ```
+
+## Module 2: Kubernetes Storage Provisioning with Trident 101
 
 ### Create NetApp Trident backend
 
@@ -119,7 +127,7 @@ All the pods with RWM PV will be running regardless of the worker on which they 
 
 > Go to slide 7
 
-## Module 2: New tier application architecture with Kubernetes
+## Module 3: New tier application architecture with Kubernetes
 
 ### Sample cloud-native application with 10 microservices by GCP 
 
@@ -174,7 +182,7 @@ kubectl scale --replicas=5 statefulset mongodb
 kubectl get pods 
 ```
 
-## Module 3: Advanced NetApp Trident features
+## Module 4: Advanced NetApp Trident features
 
 ### Volume Import
 
@@ -242,66 +250,65 @@ exit
 
 ### Kubernetes Persisten Volume Claim from Snapshot (aka Clone)
 
-- Objetive: 
+- Objetive: Note that right now, up to kubernetes 1.17, a Volume snapshot can not be restored. What can we do with a volume snapshot? Cloning.
 
 > Go to slide 16
 
+Run the below command:
 
-
-Note that a right now (up to kubernetes 1.17) a Volume snapshot can not be restored.
-
-
- ---------------------------
-| --> PPT 16                |
- ---------------------------
-
+```shell
 ./10_create_staging_web_service.sh
+```
 
- ---------------------------
-| --> PPT 17                |
- ---------------------------
+> Go to slide 17
 
+Run the below commands:
+
+```shell
 kubectl get pv
+kubectl get all -n web
+```
+
+Run the below command from ONTAP:
+
+```shell
 volume clone show
+```
 
-Firefox to to http://192.168.0.141
+Open a browser http://192.168.0.141
 
+Run the below command to modify the data
+
+```shell
 ./11_coding_new_website.sh
+```
 
-Chrome to http://192.168.0.141
+Open a browser in incognito mode http://192.168.0.141
 
+## Module 5: Configuration Management 
 
+### Ansible phase 2: Configuration Management
 
-------------------------------------------------------------------------
-### Ansible Day 2 CONFIGURATION MANAGEMENT
+- Objetive: Ansible Phases 2 optimizes compliance and operation.
 
- ---------------------------
-| --> PPT 18 	  			|
- ---------------------------
+> Go to slide 17
 
+Run the below command:
 
+```shell
 cd ../ansible_playbooks/
-vi day2.yml: 
-  modify the source_volume_to_protect: <replace_here>
-  
+```
+
+Edit the day2.yml file and modify the line 13 *source_volume_to_protect: <replace_here>* with the NFS volume name we got it in the volume import step (example 'trident_pvc_920fef59_a5a4_4f2f_80da_9ea4e4eff42e').
+
+Run the below commands:
+
+```shell
 ansible-playbook day2.yaml
+```
 
+Run the below command from ONTAP:
+
+```shell
 ontap> snapmirror show
-
-
-
-
-
-
-
-
-
-
-
-Check the steps_for_the_demo.txt file to show the steps and comments.
-
-In the playbooks folder, show, explain and run the day0-1.yml file.
-
-Run sequentially the k8s examples in the examples folder.
-
-In the playbooks folder, edit the day2.yml file and include the NFS volume name in the source_volume_to_protect var (<replace_here>). Explain and run the day2.yml file.
+```
