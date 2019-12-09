@@ -198,13 +198,19 @@ kubectl get pvc -n web
 ###### web-content-v1   Bound    pvc-920fef59-a5a4-4f2f-80da-9ea4e4eff42e
 ###### ONTAP_volume_name = trident_pvc_920fef59_a5a4_4f2f_80da_9ea4e4eff42e
 
+Run the below command to get the kubernetes services IP address:
+
 ```shell
 kubectl get all -n web
 ```
 
 Open a browser http://192.168.0.140
 
+Scale the deployment:
+
+```shell
 kubectl scale --replicas=5 statefulset web-v1 -n web
+```
 
  ---------------------------
 | --> PPT 14                |
