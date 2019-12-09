@@ -81,7 +81,7 @@ Run the below command:
 ./03_create_pvc.sh
 ```
 
-Run the below command in ONTAP:
+Run the below command from ONTAP:
 
 ```shell
 ontap> volume show -vserver svm1
@@ -206,38 +206,50 @@ kubectl get all -n web
 
 Open a browser http://192.168.0.140
 
+> Go to slide 14
+
 Scale the deployment:
 
 ```shell
 kubectl scale --replicas=5 statefulset web-v1 -n web
 ```
 
- ---------------------------
-| --> PPT 14                |
- ---------------------------
+### Kubernetes Volume Snapshots
 
-------------------------------------------------------------------------
-SNAPSHOTS
+- Objetive: The container storage interface (CSI) is a standardized API for container orchestrators to manage storage plugins. NetApp Trident has been deployed a CSI plugin. Kubernetes 1.12 includes Volume Snapshots as a Alpha, and Kubernetes 1.17 does it asa Beta. 
 
- ---------------------------
-| --> PPT 15                |
- ---------------------------
+> Go to slide 15
 
-- Take a snapshot (K8S native)
+Run the below command:
 
+```shell
 ./09_create_ondemand_snapshot.sh
+```
 
+Run the below command from ONTAP:
+
+```shell
 ontap> snapshot show
+```
 
+Browser the .snapshot directory
 
-- Browser in the .snapshot directory
-
+```shell
 kubectl exec -it web-v1-0 /bin/sh -n web 
 ls -altr /usr/share/nginx/html/.snapshot
 exit
+```
 
-------------------------------------------------------------------------
-CLONE FOR STAGING
+### Kubernetes Persisten Volume Claim from Snapshot (aka Clone)
+
+- Objetive: 
+
+> Go to slide 16
+
+
+
+Note that a right now (up to kubernetes 1.17) a Volume snapshot can not be restored.
+
 
  ---------------------------
 | --> PPT 16                |
