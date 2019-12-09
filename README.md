@@ -48,7 +48,7 @@ Run the below commands and explain the used Ansible playbook to automate the ONT
 
 ```shell
 cd ansible_playbooks/
-cat day0-1.yml
+cat day0-1.yaml
 ansible-playbook day0-1.yaml
 cd ..
 ```
@@ -81,7 +81,7 @@ Run the below commands:
 
 ### Dynamic Kubernetes Persistent Volumes Provisioning with Trident
 
-- Objetive: Persistent Volume Claims (or PVCs) are objects that request storage resources from your cluster. It shows how to run RWM (Read Write Many) PVC and RWO (Read Write Once) PVC to get Kubernetes Persistent Volumes (PV). RWM =  NFS, RWO = NFS or iSCSI. however, we can understand RWM as NAS and RWO as SAN.
+- Objetive: Persistent Volume Claims (or PVCs) are objects that request storage resources from your cluster. It shows how to run RWM (Read Write Many) PVC and RWO (Read Write Once) PVC to get Kubernetes Persistent Volumes (PV). RWM =  NFS, RWO = NFS or iSCSI. However, we can understand RWM as NAS and RWO as SAN.
 
 > Go to slide 5
 
@@ -155,7 +155,7 @@ kubectl get pvc
 kubectl get pv
 ```
 
-Scaling the deployment:
+Scaling the statefulset:
 
 ```shell
 kubectl scale --replicas=5 statefulset frontend
@@ -177,7 +177,7 @@ kubectl get pods
 kubectl get pvc
 ```
 
-Scaling the deployment:
+Scaling the statefulset:
 
 ```shell
 kubectl scale --replicas=5 statefulset mongodb
@@ -206,6 +206,7 @@ kubectl get pvc -n web
 ###### Note: Copy the volume name to a notepad. We'll need it in the last step. ONTAP_volume_name = "trident_" + $PVC_name. Example:
 ###### [root@rhel3]# kubectl get pvc -n web
 ###### web-content-v1   Bound    pvc-920fef59-a5a4-4f2f-80da-9ea4e4eff42e
+###### Replace the '-' with the '_'
 ###### ONTAP_volume_name = trident_pvc_920fef59_a5a4_4f2f_80da_9ea4e4eff42e
 
 Run the below command to get the kubernetes services IP address:
@@ -218,7 +219,7 @@ Open a browser http://192.168.0.140
 
 > Go to slide 14
 
-Scale the deployment:
+Scale the statefulset:
 
 ```shell
 kubectl scale --replicas=5 statefulset web-v1 -n web
@@ -293,7 +294,7 @@ Open a browser in incognito mode http://192.168.0.141
 
 - Objetive: Ansible Phases 2 optimizes compliance and operation.
 
-> Go to slide 17
+> Go to slide 18
 
 Run the below command:
 
