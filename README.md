@@ -119,7 +119,7 @@ kubectl exec -it pvpod-san1 mount | grep /data
 
 ### Scale the Pods manually
 
-- Objetive: Run similar pods binding the same PV on the same and another kubernetes workers.
+- Objetive: Run similar pods binding the same PV on the same kubernetes worker and different workers.
 
 Run the below commands:
 
@@ -127,10 +127,11 @@ Run the below commands:
 kubectl get pods -o wide
 
 ./05_scale_pods_manually.sh
+
 kubectl get pods -o wide
 ```
 
-All the pods with RWM PV will be running regardless of the worker on which they are scheduled. Only the pods with RWO scheduled on the worker rhel1 arwill bee running. There is a Multi-Attach error for the volume mount in the pods which are not scheduled in the worker rhel1. ReadWriteMany (RMX) access is for workers not for pods. Focus on that usually the applications need RWM or RWO access. Depends on the application. K8S needs unified storage.
+All the pods with RWM PV will be running regardless of the worker on which they are scheduled. Only the pods with RWO scheduled on the worker rhel1 will be running. There is a Multi-Attach error for the RWO volume mount in the pods which are not scheduled in the worker rhel1. The reason is because ReadWriteMany (RMX) access is for workers not for pods. Focus on that usually the applications need RWM or RWO access. It depends on the application but K8S needs unified storage.
 
 > Go to slide 7
 
@@ -193,7 +194,7 @@ kubectl get pods
 
 ### Volume Import
 
-- Objetive: Explain the Trident Volume Import feature and some use cases. The demo shows a legacy website with the content in a NetApp NFS volume, and the procedure to import the service in Kubernetes as a pod. Note that the demo shows a website to understand it better but consider a database.
+- Objetive: Explain the Trident Volume Import feature and some use cases. The demo shows a legacy website with the content in a NetApp NFS volume, and the procedure to import the webpage in Kubernetes as a pod. *Note that the demo shows a website to understand it better but consider a database*.
 
 > Go to slide 12 and 13
 
