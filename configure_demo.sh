@@ -31,6 +31,8 @@ kubectl delete sc solidfire-gold-four
 kubectl delete sc solidfire-silver
 kubectl delete sc solidfire-silver-one 
 kubectl delete sc solidfire-silver-three
+kubectl delete sc sf-gold
+kubectl delete sc sf-silver
 
 
 tridentctl delete backend BackendForNAS -n trident
