@@ -194,7 +194,7 @@ kubectl get pods
 
 ### Volume Import
 
-- Objetive: Explain the Trident Volume Import feature and some use cases. The demo shows a legacy website with the content in a NetApp NFS volume, and the procedure to import the webpage in Kubernetes as a pod. *Note that the demo shows a website to understand it better but consider a database*.
+- Objetive: Explain the Trident Volume Import feature and some use cases. The demo shows a legacy website with the content in a NetApp NFS volume, and the procedure to import the webpage in Kubernetes as a pod. **Note that the demo shows a website to understand it better but consider a database**.
 
 > Go to slide 12 and 13
 
