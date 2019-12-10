@@ -1,5 +1,5 @@
 # Demo Trident
-Scripts and ansible playbooks to modify the NetApp Lab on Demand [Using Trident with Kubernetes and ONTAP v3.0](https://labondemand.netapp.com/lab/sl10556) and show the advantages to use ONTAP as a backend storage for Kubernetes and OpenShift. The demo is shown in 5 sections:
+Scripts and ansible playbooks to modify the NetApp Lab on Demand [Using Trident with Kubernetes and ONTAP v3.0](https://labondemand.netapp.com/lab/sl10556) and to show the advantages to use ONTAP as a backend storage for Kubernetes and OpenShift. The demo is shown in 5 sections:
 
 * [Module 1: Deployment & Provisioning](#module-1-deployment--provisioning)
 * [Module 2: Kubernetes Storage Provisioning with Trident 101](#module-2-kubernetes-storage-provisioning-with-trident-101)
@@ -18,13 +18,13 @@ chmod 744 *
 ./configure_demo.sh
 ```
 
-Open the PDF with the images in the browser http://rhel6.demo.netapp.com/demo.pdf
+Open the slides in the browser http://rhel6.demo.netapp.com/demo.pdf.
 
 ## Module 1: Deployment & Provisioning
 
 ### Show the demo kubernetes cluster
 
-- Objetive: Show the kubernetes cluster in order to understand the demo
+- Objetive: Show the kubernetes cluster in order to understand the demo.
 
 > Go to slide 2
 
@@ -32,7 +32,6 @@ Run the below commands:
 
 ```shell
 kubectl get nodes
-kubectl get pods --all-namespaces
 tridentctl version -n trident
 kubectl get crds
 kubectl get deployment -n trident
@@ -44,7 +43,7 @@ kubectl get deployment -n trident
 
 > Go to slide 3
 
-Run the below commands and explain the used Ansible playbook to automate the ONTAP provisioning:
+Run the below commands and explain the Ansible playbook to automate the ONTAP provisioning:
 
 ```shell
 cd ansible_playbooks/
@@ -57,7 +56,7 @@ cd ..
 
 ### Create NetApp Trident backend
 
-- Objetive: A Trident backend defines the relationship between Trident and a storage system. It tells Trident how to communicate with that storage system. Task to do by the IT Storage Administrator
+- Objetive: A Trident backend defines the relationship between Trident and a storage system. It tells Trident how to communicate with that storage system. Tasks to do by the IT Storage Administrator.
 
 > Go to slide 4
 
@@ -71,7 +70,7 @@ cd examples/
 
 ### Show the Kubernetes Storage Classes
 
-- Objetive: A StorageClass provides a way for administrators to describe the “classes” of storage they offer. Different classes might map to quality-of-service levels, or to backup policies, or to arbitrary policies determined by the cluster administrators. Trident moves the ONTAP's advantages to the containers and kubernetes solutions
+- Objetive: A StorageClass provides a way for administrators to describe the 'classes' of storage they offer. Different classes might map to quality-of-service levels, or to backup policies, or to arbitrary policies determined by the cluster administrators. Trident moves the ONTAP's advantages to the containers and kubernetes solutions.
 
 Run the below commands:
 
@@ -81,7 +80,13 @@ Run the below commands:
 
 ### Dynamic Kubernetes Persistent Volumes Provisioning with Trident
 
-- Objetive: Persistent Volume Claims (or PVCs) are objects that request storage resources from your cluster. It shows how to run RWM (Read Write Many) PVC and RWO (Read Write Once) PVC to get Kubernetes Persistent Volumes (PV). RWM =  NFS, RWO = NFS or iSCSI. However, we can understand RWM as NAS and RWO as SAN.
+- Objetive: Persistent Volume Claims (or PVCs) are objects that request storage resources from a cluster. It shows how to run Read Write Many Persistent Volumes and Read Write Once Persistent Volumes.
+
+| PV Access Modes | Abbreviated |    Volume    | As known as |
+| --------------- |:-----------:| ------------ | ----------- |
+|  ReadWriteMany  |     RWX     |      NFS     |     NAS     |
+|  ReadWriteOnce  |     RWO     | iSCSI or NFS |     SAN     |
+|  ReadOnlyMany   |     ROX     | iSCSI or NFS |             |
 
 > Go to slide 5
 
