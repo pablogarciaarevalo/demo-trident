@@ -210,11 +210,11 @@ kubectl get pvc -n web
 ```
 
 *Note: Copy the volume name to a notepad. We'll need it in the last step.*
+*Replace the '-' with the '_'*
 ```
 ONTAP_volume_name = "trident_" + $PVC_name. Example:
 [root@rhel3]# kubectl get pvc -n web
 web-content-v1   Bound    pvc-920fef59-a5a4-4f2f-80da-9ea4e4eff42e
-Replace the '-' with the '_'
 ONTAP_volume_name = trident_pvc_920fef59_a5a4_4f2f_80da_9ea4e4eff42e
 ```
 
