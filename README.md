@@ -147,7 +147,6 @@ Run the below command:
 ./06_sidecar_pod.sh
 ```
 
-
 ## Module 3: New tier application architecture with Kubernetes
 
 ### Sample cloud-native application with 10 microservices by GCP 
