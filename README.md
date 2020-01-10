@@ -135,13 +135,26 @@ All the pods with RWM PV will be running regardless of the worker on which they 
 
 > Go to slide 7
 
+### Sidecar Pod
+
+- Objetive: Run a pod with two containers, the first one writes data in a shared volume and the second one reads the data. ReadWriteMany access mode should fit better.
+
+> Go to slide 8
+
+Run the below command:
+
+```shell
+./06_sidecar_pod.sh
+```
+
+
 ## Module 3: New tier application architecture with Kubernetes
 
 ### Sample cloud-native application with 10 microservices by GCP 
 
 - Objetive: Data storage is not really important, the applications are. But Trident with the NetApp storage provides some advantages with the ONTAP features that allows the application works better (efficiency, scale, security, portability,...).
 
-> Go to slide 8
+> Go to slide 9
 
 Set focus on the microservices Frontend and Cache (Redis), which can use RWM PV and RWO PV respectively. Again, K8S needs unified storage.
 
@@ -149,12 +162,12 @@ Set focus on the microservices Frontend and Cache (Redis), which can use RWM PV 
 
 - Objetive: Show how to create and scale a frontend deployment accessing a single ReadWriteMany Persistent Volume (NFS)
 
-> Go to slide 9 and 10
+> Go to slide 10 and 11
 
 Run the below commands:
 
 ```shell
-./06_create_frontend_service.sh
+./07_create_frontend_service.sh
 
 kubectl get pods -o wide
 kubectl get pvc
@@ -172,12 +185,12 @@ kubectl get pods -o wide
 
 - Objetive: Show how to create and scale a backend deployment accessing a single ReadWriteOnce Persistent Volume (iSCSI)
 
-> Go to slide 11
+> Go to slide 12
 
 Run the below commands:
 
 ```shell
-./07_create_backend_service.sh
+./08_create_backend_service.sh
 
 kubectl get pods
 kubectl get pvc
@@ -196,7 +209,7 @@ kubectl get pods
 
 - Objetive: Explain the Trident Volume Import feature and some use cases. The demo shows a legacy website with the content in a NetApp NFS volume, and the procedure to import the webpage in Kubernetes as a pod. **Note that the demo shows a website to understand it better but consider a database**.
 
-> Go to slide 12 and 13
+> Go to slide 13 and 14
 
 Open a browser http://rhel6.demo.netapp.com/
 
@@ -204,7 +217,7 @@ Open a browser http://rhel6.demo.netapp.com/
 Run the below commands:
 
 ```shell
-./08_import_web_service.sh
+./09_import_web_service.sh
 
 kubectl get pvc -n web
 ```
@@ -226,7 +239,7 @@ kubectl get all -n web
 
 Open a browser http://192.168.0.140
 
-> Go to slide 14
+> Go to slide 15
 
 Scale the statefulset:
 
@@ -238,12 +251,12 @@ kubectl scale --replicas=5 statefulset web-v1 -n web
 
 - Objetive: The container storage interface (CSI) is a standardized API for container orchestrators to manage storage plugins. NetApp Trident has been deployed a CSI plugin. Kubernetes 1.12 includes Volume Snapshots as a Alpha, and Kubernetes 1.17 does it asa Beta. 
 
-> Go to slide 15
+> Go to slide 16
 
 Run the below command:
 
 ```shell
-./09_create_ondemand_snapshot.sh
+./10_create_ondemand_snapshot.sh
 ```
 
 Run the below command from ONTAP:
@@ -264,15 +277,15 @@ exit
 
 - Objetive: Note that right now, up to kubernetes 1.17, a Volume snapshot can not be restored. What can we do with a volume snapshot? Cloning.
 
-> Go to slide 16
+> Go to slide 17
 
 Run the below command:
 
 ```shell
-./10_create_staging_web_service.sh
+./11_create_staging_web_service.sh
 ```
 
-> Go to slide 17
+> Go to slide 18
 
 Run the below commands:
 
@@ -292,7 +305,7 @@ Open a browser http://192.168.0.141
 Run the below command to modify the data
 
 ```shell
-./11_coding_new_website.sh
+./12_coding_new_website.sh
 ```
 
 Open a browser in incognito mode http://192.168.0.141
@@ -303,7 +316,7 @@ Open a browser in incognito mode http://192.168.0.141
 
 - Objetive: Ansible Phases 2 optimizes compliance and operation.
 
-> Go to slide 18
+> Go to slide 19
 
 Run the below command:
 

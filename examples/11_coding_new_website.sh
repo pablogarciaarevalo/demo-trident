@@ -1,4 +1,4 @@
-clear
+clear 
 echo "Coding new website..."
 cd /root/demo-trident/netapp_website/v2 > /dev/null
 tar -cvf netapp_website_v2.tar . > /dev/null
