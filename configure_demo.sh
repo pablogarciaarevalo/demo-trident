@@ -21,16 +21,8 @@ docker -H ssh://root@rhel6 run --name docker-nginx -p 80:80 -d -v /mnt/web_conte
 
 
 kubectl delete sc storage-class-nas
-kubectl delete sc storage-class-solidfire
 kubectl delete sc storage-class-ssd
 kubectl delete sc storage-class-storagepool
-kubectl delete sc gold
-kubectl delete sc silver
-kubectl delete sc solidfire-bronze-two
-kubectl delete sc solidfire-gold-four
-kubectl delete sc solidfire-silver
-kubectl delete sc solidfire-silver-one 
-kubectl delete sc solidfire-silver-three
 kubectl delete sc sf-gold
 kubectl delete sc sf-silver
 
@@ -46,17 +38,7 @@ kubectl create -f ./k8s_files/snap-sc.yaml
 
 kubectl patch storageclass san -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 
-chmod 744 * ./examples/01_create_k8s_backends.sh
-chmod 744 * ./examples/02_check_k8s_storageclasses.sh
-chmod 744 * ./examples/03_create_pvc.sh
-chmod 744 * ./examples/04_create_pods.sh
-chmod 744 * ./examples/05_scale_pods_manually.sh
-chmod 744 * ./examples/06_create_frontend_service.sh
-chmod 744 * ./examples/07_create_backend_service.sh
-chmod 744 * ./examples/08_import_web_service.sh
-chmod 744 * ./examples/09_create_ondemand_snapshot.sh
-chmod 744 * ./examples/10_create_staging_web_service.sh
-chmod 744 * ./examples/11_coding_new_website.sh
+chmod 744 * ./examples/*
 
 kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.8.3/manifests/metallb.yaml
 kubectl apply -f ./k8s_files/metailb-configmap.yaml

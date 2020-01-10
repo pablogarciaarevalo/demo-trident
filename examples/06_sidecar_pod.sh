@@ -12,10 +12,11 @@ echo "[root@rhel3 ~]# kubectl get pods"
 kubectl get pods
 echo ""
 read -p "Press any key to continue... " -n1 -s
-echo "[root@rhel3 ~]# kubectl get pods"
-kubectl get pods
+echo "[root@rhel3 ~]# kubectl get pods -o wide"
+kubectl get pods -o wide
 echo ""
 read -p "Press any key to continue... " -n1 -s
-
+echo ""
 echo "curl http://$(kubectl get pod sidecar-pod -o=jsonpath='{.status.podIP}')"
+echo ""
 curl http://$(kubectl get pod sidecar-pod -o=jsonpath='{.status.podIP}')

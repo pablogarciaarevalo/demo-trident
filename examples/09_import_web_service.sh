@@ -30,7 +30,6 @@ read -p "Press any key to continue... " -n1 -s
 clear
 
 echo "# Copying the PVC name, replacing a character to match with the ONTAP volume name, to use in a next step."
-echo "kubectl get pvc web-content-v1 -n web -o=jsonpath='{.spec.volumeName}' | sed 's/-/_/g' >> ../ansible_playbooks/pvc-name.txt"
-kubectl get pvc web-content-v1 -n web -o=jsonpath='{.spec.volumeName}' | sed 's/-/_/g' >> ../ansible_playbooks/pvc-name.json
+echo "(echo -n "{\"source_volume_to_protect\": trident_" && kubectl get pvc web-content-v1 -n web -o=jsonpath='{.spec.volumeName}' | sed 's/-/_/g' && echo -n "}") > ../ansible_playbooks/pvc-name.json"
+(echo -n "{\"source_volume_to_protect\": trident_" && kubectl get pvc web-content-v1 -n web -o=jsonpath='{.spec.volumeName}' | sed 's/-/_/g' && echo -n "}") > ../ansible_playbooks/pvc-name.json
 
-{"source_volume_to_protect": 1.618}

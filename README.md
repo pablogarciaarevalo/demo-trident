@@ -121,6 +121,8 @@ kubectl exec -it pvpod-san1 mount | grep /data
 
 - Objetive: Run similar pods binding the same PV on the same kubernetes worker and different workers.
 
+> Go to slide 7
+
 Run the below commands:
 
 ```shell
@@ -133,13 +135,13 @@ kubectl get pods -o wide
 
 All the pods with RWM PV will be running regardless of the worker on which they are scheduled. Only the pods with RWO scheduled on the worker rhel1 will be running. There is a Multi-Attach error for the RWO volume mount in the pods which are not scheduled in the worker rhel1. The reason is because ReadWriteMany (RMX) access is for workers not for pods. Focus on that usually the applications need RWM or RWO access. It depends on the application but K8S needs unified storage.
 
-> Go to slide 7
+> Go to slide 8
 
 ### Sidecar Pod
 
 - Objetive: Run a pod with two containers, the first one writes data in a shared volume and the second one reads the data. ReadWriteMany access mode should fit better.
 
-> Go to slide 8
+> Go to slide 9
 
 Run the below command:
 
@@ -153,7 +155,7 @@ Run the below command:
 
 - Objetive: Data storage is not really important, the applications are. But Trident with the NetApp storage provides some advantages with the ONTAP features that allows the application works better (efficiency, scale, security, portability,...).
 
-> Go to slide 9
+> Go to slide 10
 
 Set focus on the microservices Frontend and Cache (Redis), which can use RWM PV and RWO PV respectively. Again, K8S needs unified storage.
 
@@ -161,7 +163,7 @@ Set focus on the microservices Frontend and Cache (Redis), which can use RWM PV 
 
 - Objetive: Show how to create and scale a frontend deployment accessing a single ReadWriteMany Persistent Volume (NFS)
 
-> Go to slide 10 and 11
+> Go to slide 11 and 12
 
 Run the below commands:
 
@@ -184,7 +186,7 @@ kubectl get pods -o wide
 
 - Objetive: Show how to create and scale a backend deployment accessing a single ReadWriteOnce Persistent Volume (iSCSI)
 
-> Go to slide 12
+> Go to slide 13
 
 Run the below commands:
 
@@ -208,7 +210,7 @@ kubectl get pods
 
 - Objetive: Explain the Trident Volume Import feature and some use cases. The demo shows a legacy website with the content in a NetApp NFS volume, and the procedure to import the webpage in Kubernetes as a pod. **Note that the demo shows a website to understand it better but consider a database**.
 
-> Go to slide 13 and 14
+> Go to slide 14 and 15
 
 Open a browser http://rhel6.demo.netapp.com/
 
@@ -229,7 +231,7 @@ kubectl get all -n web
 
 Open a browser http://192.168.0.140
 
-> Go to slide 15
+> Go to slide 16
 
 Scale the statefulset:
 
@@ -241,7 +243,7 @@ kubectl scale --replicas=5 statefulset web-v1 -n web
 
 - Objetive: The container storage interface (CSI) is a standardized API for container orchestrators to manage storage plugins. NetApp Trident has been deployed a CSI plugin. Kubernetes 1.12 includes Volume Snapshots as a Alpha, and Kubernetes 1.17 does it asa Beta. 
 
-> Go to slide 16
+> Go to slide 17
 
 Run the below command:
 
@@ -267,7 +269,7 @@ exit
 
 - Objetive: Note that right now, up to kubernetes 1.17, a Volume snapshot can not be restored. What can we do with a volume snapshot? Cloning.
 
-> Go to slide 17
+> Go to slide 18
 
 Run the below command:
 
@@ -275,7 +277,7 @@ Run the below command:
 ./11_create_staging_web_service.sh
 ```
 
-> Go to slide 18
+> Go to slide 19
 
 Run the below commands:
 
@@ -306,14 +308,13 @@ Open a browser in incognito mode http://192.168.0.141
 
 - Objetive: Ansible Phases 2 optimizes compliance and operation.
 
-> Go to slide 19
+> Go to slide 20
 
 Run the below command:
 
 ```shell
 cd ../ansible_playbooks/
-pvc-name='cat pvc-name.txt'
-echo $pvc-name
+cat pvc-name.json
 ```
 
 Edit the day2.yml file and modify the line 13 *source_volume_to_protect: <replace_here>* with the PVC name).
@@ -321,7 +322,7 @@ Edit the day2.yml file and modify the line 13 *source_volume_to_protect: <replac
 Run the below commands:
 
 ```shell
-ansible-playbook day2.yaml -e "source_volume_to_protect=$pvc-name"
+ansible-playbook day2.yaml -e "@pvc-name.json"
 ```
 
 Run the below command from ONTAP:
