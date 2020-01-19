@@ -143,7 +143,7 @@ Run the below command:
 ./06_sidecar_pod.sh
 ```
 
-### Sidecar Pod
+### PVC RWO using NAS
 
 - Objetive: Read Write Only access mode can be block (iSCSI) or file (NFS). Some applications don't run fast in NFS, like Kafka, but it's not an issue in the NAS side. A NAS is not slower.
 
@@ -174,7 +174,7 @@ Set focus on the microservices Frontend and Cache (Redis), which can use RWM PV 
 Run the below commands:
 
 ```shell
-./07_create_frontend_service.sh
+./08_create_frontend_service.sh
 
 kubectl get pods -o wide
 kubectl get pvc
@@ -197,7 +197,7 @@ kubectl get pods -o wide
 Run the below commands:
 
 ```shell
-./08_create_backend_service.sh
+./09_create_backend_service.sh
 
 kubectl get pods
 kubectl get pvc
@@ -224,7 +224,7 @@ Open a browser http://rhel6.demo.netapp.com/
 Run the below commands:
 
 ```shell
-./09_import_web_service.sh
+./10_import_web_service.sh
 
 kubectl get pvc -n web
 ```
@@ -254,7 +254,7 @@ kubectl scale --replicas=5 statefulset web-v1 -n web
 Run the below command:
 
 ```shell
-./10_create_ondemand_snapshot.sh
+./11_create_ondemand_snapshot.sh
 ```
 
 Run the below command from ONTAP:
@@ -280,7 +280,7 @@ exit
 Run the below command:
 
 ```shell
-./11_create_staging_web_service.sh
+./12_create_staging_web_service.sh
 ```
 
 > Go to slide 20
@@ -303,7 +303,7 @@ Open a browser http://192.168.0.141
 Run the below command to modify the data
 
 ```shell
-./12_coding_new_website.sh
+./13_coding_new_website.sh
 ```
 
 Open a browser in incognito mode http://192.168.0.141
