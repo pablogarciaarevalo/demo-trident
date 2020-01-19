@@ -96,12 +96,6 @@ Run the below command:
 ./03_create_pvc.sh
 ```
 
-Run the below command from ONTAP:
-
-```shell
-ontap> volume show -vserver svm1
-```
-
 ### Create Pods and bind the previous Persistent Volumes
 
 - Objetive: Show how to bind RWM and RWO Persistent Volumes to a PODs. Show how the volumes are mounting.
@@ -149,13 +143,25 @@ Run the below command:
 ./06_sidecar_pod.sh
 ```
 
+### Sidecar Pod
+
+- Objetive: Read Write Only access mode can be block (iSCSI) or file (NFS). Some applications don't run fast in NFS, like Kafka, but it's not an issue in the NAS side. A NAS is not slower.
+
+> Go to slide 10
+
+Run the below command:
+
+```shell
+./07_pod_pvc_rwo.sh
+```
+
 ## Module 3: New tier application architecture with Kubernetes
 
 ### Sample cloud-native application with 10 microservices by GCP 
 
 - Objetive: Data storage is not really important, the applications are. But Trident with the NetApp storage provides some advantages with the ONTAP features that allows the application works better (efficiency, scale, security, portability,...).
 
-> Go to slide 10
+> Go to slide 11
 
 Set focus on the microservices Frontend and Cache (Redis), which can use RWM PV and RWO PV respectively. Again, K8S needs unified storage.
 
@@ -163,7 +169,7 @@ Set focus on the microservices Frontend and Cache (Redis), which can use RWM PV 
 
 - Objetive: Show how to create and scale a frontend deployment accessing a single ReadWriteMany Persistent Volume (NFS)
 
-> Go to slide 11 and 12
+> Go to slide 12 and 13
 
 Run the below commands:
 
@@ -186,7 +192,7 @@ kubectl get pods -o wide
 
 - Objetive: Show how to create and scale a backend deployment accessing a single ReadWriteOnce Persistent Volume (iSCSI)
 
-> Go to slide 13
+> Go to slide 14
 
 Run the below commands:
 
@@ -210,7 +216,7 @@ kubectl get pods
 
 - Objetive: Explain the Trident Volume Import feature and some use cases. The demo shows a legacy website with the content in a NetApp NFS volume, and the procedure to import the webpage in Kubernetes as a pod. **Note that the demo shows a website to understand it better but consider a database**.
 
-> Go to slide 14 and 15
+> Go to slide 15 and 16
 
 Open a browser http://rhel6.demo.netapp.com/
 
@@ -231,7 +237,7 @@ kubectl get all -n web
 
 Open a browser http://192.168.0.140
 
-> Go to slide 16
+> Go to slide 17
 
 Scale the statefulset:
 
@@ -241,9 +247,9 @@ kubectl scale --replicas=5 statefulset web-v1 -n web
 
 ### Kubernetes Volume Snapshots
 
-- Objetive: The container storage interface (CSI) is a standardized API for container orchestrators to manage storage plugins. NetApp Trident has been deployed a CSI plugin. Kubernetes 1.12 includes Volume Snapshots as a Alpha, and Kubernetes 1.17 does it asa Beta. 
+- Objetive: The container storage interface (CSI) is a standardized API for container orchestrators to manage storage plugins. NetApp Trident has been deployed a CSI plugin. Kubernetes 1.12 includes Volume Snapshots as a Alpha, and Kubernetes 1.17 does it as a Beta. 
 
-> Go to slide 17
+> Go to slide 18
 
 Run the below command:
 
@@ -269,7 +275,7 @@ exit
 
 - Objetive: Note that right now, up to kubernetes 1.17, a Volume snapshot can not be restored. What can we do with a volume snapshot? Cloning.
 
-> Go to slide 18
+> Go to slide 19
 
 Run the below command:
 
@@ -277,7 +283,7 @@ Run the below command:
 ./11_create_staging_web_service.sh
 ```
 
-> Go to slide 19
+> Go to slide 20
 
 Run the below commands:
 
@@ -308,18 +314,16 @@ Open a browser in incognito mode http://192.168.0.141
 
 - Objetive: Ansible Phases 2 optimizes compliance and operation.
 
-> Go to slide 20
+> Go to slide 21
 
-Run the below command:
+Run the below commands:
 
 ```shell
 cd ../ansible_playbooks/
 cat pvc-name.json
 ```
 
-Edit the day2.yml file and modify the line 13 *source_volume_to_protect: <replace_here>* with the PVC name).
-
-Run the below commands:
+Run the below command:
 
 ```shell
 ansible-playbook day2.yaml -e "@pvc-name.json"

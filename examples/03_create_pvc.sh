@@ -15,3 +15,6 @@ kubectl create -f ../k8s_files/pvcfornas.yaml
 kubectl create -f ../k8s_files/pvcforsan.yaml
 echo "[root@rhel3 ~]# kubectl get pvc"
 kubectl get pvc
+echo ""
+echo "curl -k -X GET 'https://cluster1.demo.netapp.com/api/storage/volumes' -H 'accept: application/json' -H 'authorization: Basic YWRtaW46TmV0YXBwMSE='"
+curl -k -X GET "https://cluster1.demo.netapp.com/api/storage/volumes" -H "accept: application/json" -H "authorization: Basic YWRtaW46TmV0YXBwMSE="

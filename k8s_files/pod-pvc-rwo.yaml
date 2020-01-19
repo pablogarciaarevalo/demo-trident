@@ -1,0 +1,32 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: persistent-volume-rwo
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: nas-silver
+  resources:
+    requests:
+      storage: 1Gi
+---
+  kind: Pod
+  apiVersion: v1
+  metadata:
+    name: pvpod-rwo
+  spec:
+    volumes:
+      - name: task-pv-storage
+        persistentVolumeClaim:
+         claimName: persistent-volume-rwo
+    containers:
+      - name: task-pv-container
+        image: alpine:3.2
+        command:
+          - /bin/sh
+          - "-c"
+          - "sleep 60m"
+        volumeMounts:
+          - mountPath: "/data"
+            name: task-pv-storage
+  

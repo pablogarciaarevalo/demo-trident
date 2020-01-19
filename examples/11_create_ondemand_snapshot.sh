@@ -1,6 +1,7 @@
 clear
 echo "[root@rhel3 ~]# cat ../k8s_files/snap-sc.yaml"
 cat ../k8s_files/snap-sc.yaml
+echo ""
 echo "[root@rhel3 ~]# cat ../k8s_files/snap.yaml"
 cat ../k8s_files/snap.yaml
 echo ""
