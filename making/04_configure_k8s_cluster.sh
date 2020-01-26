@@ -17,7 +17,7 @@ echo "Install and create a metallb configuration"
 echo "#######################################################################################################"
 
 kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.8.3/manifests/metallb.yaml
-kubectl apply -f demo-trident-v2/making/k8s_files/metailb-configmap-k8s-dev.yaml
+kubectl apply -f demo-trident/making/k8s_files/metailb-configmap-k8s-dev.yaml
 
 echo "#######################################################################################################"
 echo "Installing Trident"
@@ -30,8 +30,8 @@ echo "##########################################################################
 echo "Create K8S backend y Storage class"
 echo "#######################################################################################################"
 
-tridentctl create backend --filename demo-trident-v2/demo/k8s_files/backend-nas.json -n trident
-kubectl apply -f demo-trident-v2/demo/k8s_files/sc-nas-silver.yaml
+tridentctl create backend --filename demo-trident/demo/k8s_files/backend-nas.json -n trident
+kubectl apply -f demo-trident/demo/k8s_files/sc-nas-silver.yaml
 
 
 
