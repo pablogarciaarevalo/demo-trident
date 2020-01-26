@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: web-content-v1
-  namespace: web
-spec:
-  accessModes:
-  - ReadWriteMany
-  storageClassName: nas-silver

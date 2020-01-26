@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: web-prod
+spec:
+  ports:
+  - port: 80
+    name: web
+    protocol: TCP
+    targetPort: 80
+  type: LoadBalancer
+  selector:
+    app: web-prod
+---
+apiVersion: apps/v1
+metadata:
+  name: web-prod
+  labels:
+      app: web-prod
+kind: StatefulSet
+spec:
+  serviceName: web-service-prod
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-prod
+  template:
+    metadata:
+      labels:
+        app: web-prod
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.8
+        volumeMounts:
+          - name: my-pvc-nfs
+            mountPath: /usr/share/nginx/html
+        ports:
+        - containerPort: 80
+          name: web-prod
+      volumes:
+      - name: my-pvc-nfs
+        persistentVolumeClaim:
+          claimName: web-content-prod

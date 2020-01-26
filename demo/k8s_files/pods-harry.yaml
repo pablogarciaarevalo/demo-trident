@@ -1,0 +1,133 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: harry
+    namespace: data-analytics
+spec:
+  ports:
+  - port: 80
+    name: web
+    protocol: TCP
+    targetPort: 80
+  type: LoadBalancer
+  selector:
+    app: harry
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: harry-pytorch
+  namespace: data-analytics
+  labels:
+    app: harry
+spec:
+  volumes:
+    - name: datalake
+      persistentVolumeClaim:
+        claimName: clone-datalake-harry
+  containers:
+    - name: task-pv-container
+      image: alpine:3.2
+      command:
+        - /bin/sh
+        - "-c"
+        - "sleep 60m"
+      volumeMounts:
+      - mountPath: "/data"
+        name: datalake
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: harry-jupyter
+  namespace: data-analytics
+  labels:
+    app: harry
+spec:
+  containers:
+    - name: task-pv-container
+      image: alpine:3.2
+      command:
+        - /bin/sh
+        - "-c"
+        - "sleep 60m"
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: harry-envoy
+  namespace: data-analytics
+  labels:
+    app: harry
+spec:
+  containers:
+    - name: task-pv-container
+      image: alpine:3.2
+      command:
+        - /bin/sh
+        - "-c"
+        - "sleep 60m"
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: harry-argo
+  namespace: data-analytics
+  labels:
+    app: harry
+spec:
+  containers:
+    - name: task-pv-container
+      image: alpine:3.2
+      command:
+        - /bin/sh
+        - "-c"
+        - "sleep 60m"
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: harry-ml-pipeline
+  namespace: data-analytics
+  labels:
+    app: harry
+spec:
+  containers:
+    - name: task-pv-container
+      image: alpine:3.2
+      command:
+        - /bin/sh
+        - "-c"
+        - "sleep 60m"
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: harry-katiib-ui
+  namespace: data-analytics
+  labels:
+    app: harry
+spec:
+  containers:
+    - name: task-pv-container
+      image: alpine:3.2
+      command:
+        - /bin/sh
+        - "-c"
+        - "sleep 60m"
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: harry-seldon
+  namespace: data-analytics
+  labels:
+    app: harry
+spec:
+  containers:
+    - name: task-pv-container
+      image: alpine:3.2
+      command:
+        - /bin/sh
+        - "-c"
+        - "sleep 60m"

@@ -1,0 +1,133 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: john
+    namespace: data-analytics
+spec:
+  ports:
+  - port: 80
+    name: web
+    protocol: TCP
+    targetPort: 80
+  type: LoadBalancer
+  selector:
+    app: john
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: john-pytorch
+  namespace: data-analytics
+  labels:
+    app: john
+spec:
+  volumes:
+    - name: datalake
+      persistentVolumeClaim:
+        claimName: clone-datalake-john
+  containers:
+    - name: task-pv-container
+      image: alpine:3.2
+      command:
+        - /bin/sh
+        - "-c"
+        - "sleep 60m"
+      volumeMounts:
+      - mountPath: "/data"
+        name: datalake
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: john-jupyter
+  namespace: data-analytics
+  labels:
+    app: john
+spec:
+  containers:
+    - name: task-pv-container
+      image: alpine:3.2
+      command:
+        - /bin/sh
+        - "-c"
+        - "sleep 60m"
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: john-envoy
+  namespace: data-analytics
+  labels:
+    app: john
+spec:
+  containers:
+    - name: task-pv-container
+      image: alpine:3.2
+      command:
+        - /bin/sh
+        - "-c"
+        - "sleep 60m"
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: john-argo
+  namespace: data-analytics
+  labels:
+    app: john
+spec:
+  containers:
+    - name: task-pv-container
+      image: alpine:3.2
+      command:
+        - /bin/sh
+        - "-c"
+        - "sleep 60m"
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: john-ml-pipeline
+  namespace: data-analytics
+  labels:
+    app: john
+spec:
+  containers:
+    - name: task-pv-container
+      image: alpine:3.2
+      command:
+        - /bin/sh
+        - "-c"
+        - "sleep 60m"
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: john-katiib-ui
+  namespace: data-analytics
+  labels:
+    app: john
+spec:
+  containers:
+    - name: task-pv-container
+      image: alpine:3.2
+      command:
+        - /bin/sh
+        - "-c"
+        - "sleep 60m"
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: john-seldon
+  namespace: data-analytics
+  labels:
+    app: john
+spec:
+  containers:
+    - name: task-pv-container
+      image: alpine:3.2
+      command:
+        - /bin/sh
+        - "-c"
+        - "sleep 60m"

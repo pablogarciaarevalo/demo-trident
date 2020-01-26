@@ -1,21 +1,23 @@
 # Demo Trident
-Scripts and ansible playbooks to modify the NetApp Lab on Demand [Using Trident with Kubernetes and ONTAP v3.1](https://labondemand.netapp.com/lab/sl10556) and to show the advantages to use ONTAP as a backend storage for Kubernetes and OpenShift. The demo is shown in 5 sections:
+Scripts and ansible playbooks to modify the NetApp Lab on Demand [Using Trident with Kubernetes and ONTAP v3.1](https://labondemand.netapp.com/lab/sl10556) and to show the advantages to use ONTAP as a backend storage for Kubernetes and OpenShift. The demo is shown in 6 sections:
 
 * [Module 1: Deployment & Provisioning](#module-1-deployment--provisioning)
 * [Module 2: Kubernetes Storage Provisioning with Trident 101](#module-2-kubernetes-storage-provisioning-with-trident-101)
 * [Module 3: New tier application architecture with Kubernetes](#module-3-new-tier-application-architecture-with-kubernetes)
 * [Module 4: Advanced NetApp Trident features](#module-4-advanced-netapp-trident-features)
 * [Module 5: Configuration Management](#module-5-configuration-management)
+* [Summary](#summary)
 
-## Preparing the demo
+## Making the demo
 
-Open the putty on the jumphost and connect to the kubernetes master node root@rhel3. Run the below commands:
+Open the putty console and connect to the kubernetes master node root@rhel3. Run the below commands:
 
 ```shell
 git clone https://github.com/pablogarciaarevalo/demo-trident
-cd demo-trident
-chmod 744 *
+cd demo-trident/making
+chmod 744 *.sh
 ./configure_demo.sh
+cd ../demo/
 ```
 
 Open the slides in the browser http://rhel6.demo.netapp.com/demo.pdf.
@@ -28,13 +30,10 @@ Open the slides in the browser http://rhel6.demo.netapp.com/demo.pdf.
 
 > Go to slide 2
 
-Run the below commands:
+Run the below command:
 
 ```shell
-kubectl get nodes
-tridentctl version -n trident
-kubectl get crds
-kubectl get deployment -n trident
+kubectl get nodes -o wide
 ```
 
 ### Ansible phases days 0 & 1: Deployment & Provisioning
@@ -46,26 +45,31 @@ kubectl get deployment -n trident
 Run the below commands and explain the Ansible playbook to automate the ONTAP provisioning:
 
 ```shell
-cd ansible_playbooks/
-cat day0-1.yaml
-ansible-playbook day0-1.yaml
-cd ..
+./01_iaac_ansible_day0-1.sh
 ```
 
 ## Module 2: Kubernetes Storage Provisioning with Trident 101
+
+### Install NetApp Trident
+
+- Objetive: Show the steps to install NetApp Trident.
+
+> Go to slide 4
+
+Run the below command:
+
+```shell
+./02_install_trident.sh
+```
 
 ### Create NetApp Trident backend
 
 - Objetive: A Trident backend defines the relationship between Trident and a storage system. It tells Trident how to communicate with that storage system. Tasks to do by the IT Storage Administrator.
 
-> Go to slide 4
-
-Run the below commands:
+Run the below command:
 
 ```shell
-cd examples/
-
-./01_create_k8s_backends.sh
+./03_create_k8s_backends.sh
 ```
 
 ### Show the Kubernetes Storage Classes
@@ -75,7 +79,7 @@ cd examples/
 Run the below commands:
 
 ```shell
-./02_check_k8s_storageclasses.sh
+./04_create_k8s_storageclasses.sh
 ```
 
 ### Dynamic Kubernetes Persistent Volumes Provisioning with Trident
@@ -93,7 +97,7 @@ Run the below commands:
 Run the below command:
 
 ```shell
-./03_create_pvc.sh
+./05_create_pvc.sh
 ```
 
 ### Create Pods and bind the previous Persistent Volumes
@@ -105,7 +109,7 @@ Run the below command:
 Run the below command, noting that the YAML files are scheduling manually the Pods in the node rhel1 instead of using the kubernetes scheduler.
 
 ```shell
-./04_create_pods.sh
+./06_create_pods.sh
 
 kubectl exec -it pvpod-nas1 mount | grep /data
 kubectl exec -it pvpod-san1 mount | grep /data
@@ -122,7 +126,7 @@ Run the below commands:
 ```shell
 kubectl get pods -o wide
 
-./05_scale_pods_manually.sh
+./07_scale_pods_manually.sh
 
 kubectl get pods -o wide
 ```
@@ -140,7 +144,7 @@ All the pods with RWM PV will be running regardless of the worker on which they 
 Run the below command:
 
 ```shell
-./06_sidecar_pod.sh
+./08_sidecar_pod.sh
 ```
 
 ### PVC RWO using NAS
@@ -152,7 +156,7 @@ Run the below command:
 Run the below command:
 
 ```shell
-./07_pod_pvc_rwo.sh
+./09_pod_pvc_rwo.sh
 ```
 
 ## Module 3: New tier application architecture with Kubernetes
@@ -174,7 +178,7 @@ Set focus on the microservices Frontend and Cache (Redis), which can use RWM PV 
 Run the below commands:
 
 ```shell
-./08_create_frontend_service.sh
+./10_create_frontend_service.sh
 
 kubectl get pods -o wide
 kubectl get pvc
@@ -197,7 +201,7 @@ kubectl get pods -o wide
 Run the below commands:
 
 ```shell
-./09_create_backend_service.sh
+./11_create_backend_service.sh
 
 kubectl get pods
 kubectl get pvc
@@ -224,7 +228,7 @@ Open a browser http://rhel6.demo.netapp.com/
 Run the below commands:
 
 ```shell
-./10_import_web_service.sh
+./12_import_web_service.sh
 
 kubectl get pvc -n web
 ```
@@ -242,34 +246,14 @@ Open a browser http://192.168.0.140
 Scale the statefulset:
 
 ```shell
-kubectl scale --replicas=5 statefulset web-v1 -n web
+kubectl scale --replicas=5 statefulset web-prod -n web
 ```
 
 ### Kubernetes Volume Snapshots
 
-- Objetive: The container storage interface (CSI) is a standardized API for container orchestrators to manage storage plugins. NetApp Trident has been deployed a CSI plugin. Kubernetes 1.12 includes Volume Snapshots as a Alpha, and Kubernetes 1.17 does it as a Beta. 
+- Objetive: The container storage interface (CSI) is a standardized API for container orchestrators to manage storage plugins. NetApp Trident has been deployed a CSI plugin. Kubernetes 1.12 includes Volume Snapshots as a Alpha, and Kubernetes 1.17 does it as a Beta. This is CSI, but if you are using ONTAP you can have up to 1023 Snapshots per volume.
 
 > Go to slide 18
-
-Run the below command:
-
-```shell
-./11_create_ondemand_snapshot.sh
-```
-
-Run the below command from ONTAP:
-
-```shell
-ontap> snapshot show
-```
-
-Browser the .snapshot directory
-
-```shell
-kubectl exec -it web-v1-0 /bin/sh -n web 
-ls -altr /usr/share/nginx/html/.snapshot
-exit
-```
 
 ### Kubernetes Persisten Volume Claim from Snapshot (aka Clone)
 
@@ -277,36 +261,53 @@ exit
 
 > Go to slide 19
 
-Run the below command:
+### Use case 1 for clone
 
-```shell
-./12_create_staging_web_service.sh
-```
+- Objetive: Data pipeline for Kubeflow. Data Engineer preparing the data with SMB/NFS
 
 > Go to slide 20
 
-Run the below commands:
+```shell
+./13_datalake_clone.sh
+
+kubectl get pvc -n data-analytics
+```
+
+> Go to slide 21
 
 ```shell
-kubectl get pv
+./14_data_analytics_services.sh
+
+kubectl get all -n data-analytics
+```
+### Use case 2 for clone
+
+- Objetive: Coming to the previous web example. Cloning for dev/staging
+
+> Go to slide 22
+
+```shell
+./15_clone_web.sh
+```
+
+> Go to slide 23
+
+__**GO TO SECOND K8S CLUSTER (root@rhel4):**__
+
+```shell
+cd demo-trident/demo/
+./16_create_staging_web_service.sh
 kubectl get all -n web
 ```
 
-Run the below command from ONTAP:
+Open a browser http://192.168.0.150
 
 ```shell
-volume clone show
+./17_coding_new_website.sh
 ```
 
-Open a browser http://192.168.0.141
+Open a browser using incognito mode http://192.168.0.150
 
-Run the below command to modify the data
-
-```shell
-./13_coding_new_website.sh
-```
-
-Open a browser in incognito mode http://192.168.0.141
 
 ## Module 5: Configuration Management 
 
@@ -314,23 +315,22 @@ Open a browser in incognito mode http://192.168.0.141
 
 - Objetive: Ansible Phases 2 optimizes compliance and operation.
 
-> Go to slide 21
+> Go to slide 24
 
-Run the below commands:
-
-```shell
-cd ../ansible_playbooks/
-cat pvc-name.json
-```
-
-Run the below command:
+__**GO BACK TO THE FIRST K8S CLUSTER (rhel3)**__ and run the below command:
 
 ```shell
-ansible-playbook day2.yaml -e "@pvc-name.json"
+./18_iaac_ansible_day2.sh
 ```
 
-Run the below command from ONTAP:
+Run the below command to show the volume protection with SnapMirror:
 
 ```shell
-ontap> snapmirror show
+./19_get_protection_volumes.sh
 ```
+
+## Summary
+
+- Objetive: Explain all the tasks done and resume the advantages of use NetApp storage
+
+> Go to slide 25

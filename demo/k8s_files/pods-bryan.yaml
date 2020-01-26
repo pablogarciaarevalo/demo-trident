@@ -1,0 +1,133 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: bryan
+    namespace: data-analytics
+spec:
+  ports:
+  - port: 80
+    name: web
+    protocol: TCP
+    targetPort: 80
+  type: LoadBalancer
+  selector:
+    app: bryan
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: bryan-pytorch
+  namespace: data-analytics
+  labels:
+    app: bryan
+spec:
+  volumes:
+    - name: datalake
+      persistentVolumeClaim:
+        claimName: clone-datalake-bryan
+  containers:
+    - name: task-pv-container
+      image: alpine:3.2
+      command:
+        - /bin/sh
+        - "-c"
+        - "sleep 60m"
+      volumeMounts:
+      - mountPath: "/data"
+        name: datalake
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: bryan-jupyter
+  namespace: data-analytics
+  labels:
+    app: bryan
+spec:
+  containers:
+    - name: task-pv-container
+      image: alpine:3.2
+      command:
+        - /bin/sh
+        - "-c"
+        - "sleep 60m"
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: bryan-envoy
+  namespace: data-analytics
+  labels:
+    app: bryan
+spec:
+  containers:
+    - name: task-pv-container
+      image: alpine:3.2
+      command:
+        - /bin/sh
+        - "-c"
+        - "sleep 60m"
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: bryan-argo
+  namespace: data-analytics
+  labels:
+    app: bryan
+spec:
+  containers:
+    - name: task-pv-container
+      image: alpine:3.2
+      command:
+        - /bin/sh
+        - "-c"
+        - "sleep 60m"
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: bryan-ml-pipeline
+  namespace: data-analytics
+  labels:
+    app: bryan
+spec:
+  containers:
+    - name: task-pv-container
+      image: alpine:3.2
+      command:
+        - /bin/sh
+        - "-c"
+        - "sleep 60m"
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: bryan-katiib-ui
+  namespace: data-analytics
+  labels:
+    app: bryan
+spec:
+  containers:
+    - name: task-pv-container
+      image: alpine:3.2
+      command:
+        - /bin/sh
+        - "-c"
+        - "sleep 60m"
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: bryan-seldon
+  namespace: data-analytics
+  labels:
+    app: bryan
+spec:
+  containers:
+    - name: task-pv-container
+      image: alpine:3.2
+      command:
+        - /bin/sh
+        - "-c"
+        - "sleep 60m"

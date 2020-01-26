@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: web-dev
+spec:
+  ports:
+  - port: 80
+    name: web
+    protocol: TCP
+    targetPort: 80
+  type: LoadBalancer
+  selector:
+    app: web-dev
+---
+apiVersion: apps/v1
+metadata:
+  name: web-dev
+  labels:
+      app: web-dev
+kind: StatefulSet
+spec:
+  serviceName: web-service-dev
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-dev
+  template:
+    metadata:
+      labels:
+        app: web-dev
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.8
+        volumeMounts:
+          - name: my-pvc-nfs
+            mountPath: /usr/share/nginx/html
+        ports:
+        - containerPort: 80
+          name: web-dev
+      volumes:
+      - name: my-pvc-nfs
+        persistentVolumeClaim:
+          claimName: web-content-clone
