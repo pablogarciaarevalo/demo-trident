@@ -169,11 +169,24 @@ Run the below command:
 
 Set focus on the microservices Frontend and Cache (Redis), which can use RWM PV and RWO PV respectively. Again, K8S needs unified storage.
 
+### Kubernetes controllers: Deployment vs StatefulSet
+
+- Objetive: Explain the differences between Deployment and StatefulSet. Like a Deployment, a StatefulSet manages Pods that are based on an identical container spec. Unlike a Deployment, a StatefulSet maintains a sticky identity for each of their Pods. These pods are created from the same spec, but are not interchangeable: each has a persistent identifier that it maintains across any rescheduling.
+
+> Go to slide 12
+
+Keys:
+- Stable, unique network identifiers
+- Stable, persistent storage
+- Ordered, graceful deployment and scaling
+- Ordered, automated rolling updates
+
+
 ### Create Kubernetes dummy frontend statefulset with ReadWriteMany Persistent Volume
 
 - Objetive: Show how to create and scale a frontend deployment accessing a single ReadWriteMany Persistent Volume (NFS)
 
-> Go to slide 12 and 13
+> Go to slide 13 and 14
 
 Run the below commands:
 
@@ -196,7 +209,7 @@ kubectl get pods -o wide
 
 - Objetive: Show how to create and scale a backend deployment accessing a single ReadWriteOnce Persistent Volume (iSCSI)
 
-> Go to slide 14
+> Go to slide 15
 
 Run the below commands:
 
@@ -220,7 +233,7 @@ kubectl get pods
 
 - Objetive: Explain the Trident Volume Import feature and some use cases. The demo shows a legacy website with the content in a NetApp NFS volume, and the procedure to import the webpage in Kubernetes as a pod. **Note that the demo shows a website to understand it better but consider a database**.
 
-> Go to slide 15 and 16
+> Go to slide 16 and 17
 
 Open a browser http://rhel6.demo.netapp.com/
 
@@ -241,7 +254,7 @@ kubectl get all -n web
 
 Open a browser http://192.168.0.140
 
-> Go to slide 17
+> Go to slide 18
 
 Scale the statefulset:
 
@@ -253,19 +266,19 @@ kubectl scale --replicas=5 statefulset web-prod -n web
 
 - Objetive: The container storage interface (CSI) is a standardized API for container orchestrators to manage storage plugins. NetApp Trident has been deployed a CSI plugin. Kubernetes 1.12 includes Volume Snapshots as a Alpha, and Kubernetes 1.17 does it as a Beta. This is CSI, but if you are using ONTAP you can have up to 1023 Snapshots per volume.
 
-> Go to slide 18
+> Go to slide 19
 
 ### Kubernetes Persisten Volume Claim from Snapshot (aka Clone)
 
 - Objetive: Note that right now, up to kubernetes 1.17, a Volume snapshot can not be restored. What can we do with a volume snapshot? Cloning.
 
-> Go to slide 19
+> Go to slide 20
 
 ### Use case 1 for clone
 
 - Objetive: Data pipeline for Kubeflow. Data Engineer preparing the data with SMB/NFS
 
-> Go to slide 20
+> Go to slide 21
 
 ```shell
 ./13_datalake_clone.sh
@@ -273,7 +286,7 @@ kubectl scale --replicas=5 statefulset web-prod -n web
 kubectl get pvc -n data-analytics
 ```
 
-> Go to slide 21
+> Go to slide 22
 
 ```shell
 ./14_data_analytics_services.sh
@@ -284,13 +297,13 @@ kubectl get all -n data-analytics
 
 - Objetive: Coming to the previous web example. Cloning for dev/staging
 
-> Go to slide 22
+> Go to slide 23
 
 ```shell
 ./15_clone_web.sh
 ```
 
-> Go to slide 23
+> Go to slide 24
 
 __**GO TO SECOND K8S CLUSTER (root@rhel4):**__
 
@@ -315,7 +328,7 @@ Open a browser using incognito mode http://192.168.0.150
 
 - Objetive: Ansible Phases 2 optimizes compliance and operation.
 
-> Go to slide 24
+> Go to slide 25
 
 __**GO BACK TO THE FIRST K8S CLUSTER (rhel3)**__ and run the below command:
 
@@ -333,4 +346,4 @@ Run the below command to show the volume protection with SnapMirror:
 
 - Objetive: Explain all the tasks done and resume the advantages of use NetApp storage
 
-> Go to slide 25
+> Go to slide 26
