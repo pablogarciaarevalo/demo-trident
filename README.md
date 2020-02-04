@@ -13,7 +13,7 @@ Scripts and ansible playbooks to modify the NetApp Lab on Demand [Using Trident 
 Open the putty console and connect to the kubernetes master node root@rhel3. Run the below commands:
 
 ```shell
-git clone https://github.com/pablogarciaarevalo/demo-trident
+git clone https://github.com/barondandi/demo-trident
 cd demo-trident/making
 chmod 744 *.sh
 ./configure_demo.sh
