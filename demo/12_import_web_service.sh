@@ -12,6 +12,10 @@ clear
 echo "[root@rhel3 ~]# tridentctl import volume BackendForNAS web_content -f k8s_files/web-content-prod.yaml -n trident"
 tridentctl import volume BackendForNAS web_content -f k8s_files/web-content-prod.yaml -n trident
 echo ""
+
+persistentVolumeName=$(kubectl get pvc web-content-prod -n web -o=jsonpath='{.spec.volumeName}')
+kubectl patch pv $persistentVolumeName -p '{"spec":{"persistentVolumeReclaimPolicy":"Retain"}}'
+
 echo "[root@rhel3 ~]# kubectl get pvc -n web"
 kubectl get pvc -n web
 echo ""
@@ -42,3 +46,10 @@ echo "# Copying the PVC name replacing a character to match with the ONTAP volum
 echo "(echo -n "{\"source_volume_to_protect\": trident_" && kubectl get pvc web-content-prod -n web -o=jsonpath='{.spec.volumeName}' | sed 's/-/_/g' && echo -n "}") > volume-name-snapmirror.json"
 (echo -n "{\"source_volume_to_protect\": trident_" && kubectl get pvc web-content-prod -n web -o=jsonpath='{.spec.volumeName}' | sed 's/-/_/g' && echo -n "}") > volume-name-snapmirror.json
 
+persistentVolumeName=$(kubectl get pvc web-content-prod -n web -o=jsonpath='{.spec.volumeName}')
+echo -n $persistentVolumeName > /root/demo-trident/demo/persistent-volume-name.txt
+echo ""
+echo "Running a yaml files backup for the namespace web..."
+echo ""
+echo "[root@rhel3 ~]# ./export.sh web"
+./export.sh web

@@ -262,6 +262,17 @@ Scale the statefulset:
 kubectl scale --replicas=5 statefulset web-prod -n web
 ```
 
+### External storage: decoupling application and data:
+
+- Objetive: Kubernetes stateful applications are based on yaml files and persistent volumes. Using an external data storage allows to decoupling application and data. In case a failure, the service can be restored safely and quickly importing the persistent volumes and applying the yaml files. The most common cause of data and service lost is the human error. For instance, kubernetes doesn't request a --force flag or similar to delete a non-empty namespace (https://github.com/kubernetes/kubectl/issues/525).
+
+```shell
+kubectl delete namespace web
+kubectl get all -n web
+kubectl get pvc -all-namespaces
+./13_restore_web_service.sh
+```
+
 ### Kubernetes Volume Snapshots
 
 - Objetive: The container storage interface (CSI) is a standardized API for container orchestrators to manage storage plugins. NetApp Trident has been deployed a CSI plugin. Kubernetes 1.12 includes Volume Snapshots as a Alpha, and Kubernetes 1.17 does it as a Beta. This is CSI, but if you are using ONTAP you can have up to 1023 Snapshots per volume.
@@ -281,7 +292,7 @@ kubectl scale --replicas=5 statefulset web-prod -n web
 > Go to slide 21
 
 ```shell
-./13_datalake_clone.sh
+./14_datalake_clone.sh
 
 kubectl get pvc -n data-analytics
 ```
@@ -289,7 +300,7 @@ kubectl get pvc -n data-analytics
 > Go to slide 22
 
 ```shell
-./14_data_analytics_services.sh
+./15_data_analytics_services.sh
 
 kubectl get all -n data-analytics
 ```
@@ -300,7 +311,7 @@ kubectl get all -n data-analytics
 > Go to slide 23
 
 ```shell
-./15_clone_web.sh
+./16_clone_web.sh
 ```
 
 > Go to slide 24
@@ -309,14 +320,14 @@ __**GO TO SECOND K8S CLUSTER (root@rhel4):**__
 
 ```shell
 cd demo-trident/demo/
-./16_create_staging_web_service.sh
+./17_create_staging_web_service.sh
 kubectl get all -n web
 ```
 
 Open a browser http://192.168.0.150
 
 ```shell
-./17_coding_new_website.sh
+./18_coding_new_website.sh
 ```
 
 Open a browser using incognito mode http://192.168.0.150
@@ -333,13 +344,13 @@ Open a browser using incognito mode http://192.168.0.150
 __**GO BACK TO THE FIRST K8S CLUSTER (rhel3)**__ and run the below command:
 
 ```shell
-./18_iaac_ansible_day2.sh
+./19_iaac_ansible_day2.sh
 ```
 
 Run the below command to show the volume protection with SnapMirror:
 
 ```shell
-./19_get_protection_volumes.sh
+./20_get_protection_volumes.sh
 ```
 
 ## Summary
