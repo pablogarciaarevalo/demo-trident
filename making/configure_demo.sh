@@ -78,3 +78,4 @@ ssh -o "StrictHostKeyChecking no" root@rhel6 < ./03_join_k8s_workers.sh
 ssh -o "StrictHostKeyChecking no" root@rhel4 < ./04_configure_k8s_cluster.sh
 
 chmod 744 * ../demo/*.sh
+chmod 744 * ../demo/k8s_backup/*.sh
