@@ -262,7 +262,7 @@ Scale the statefulset:
 kubectl scale --replicas=5 statefulset web-prod -n web
 ```
 
-### External storage: decoupling application and data
+### Decoupling application and data with external storage
 
 - Objetive: Kubernetes stateful applications are based on yaml files and persistent volumes. Using an external data storage allows to decoupling application and data. In case a failure, the service can be restored safely and quickly importing the persistent volumes and applying the yaml files. The most common cause of data and service lost is the human error. For instance, kubernetes doesn't request a --force flag or similar to delete a non-empty namespace (https://github.com/kubernetes/kubectl/issues/525).
 
