@@ -271,7 +271,7 @@ Run the below commands:
 ```shell
 kubectl delete namespace web
 kubectl get all -n web
-kubectl get pvc -all-namespaces
+kubectl get pvc --all-namespaces
 ./13_restore_web_service.sh
 ```
 
