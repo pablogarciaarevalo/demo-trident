@@ -272,6 +272,11 @@ Run the below commands:
 kubectl delete namespace web
 kubectl get all -n web
 kubectl get pvc --all-namespaces
+```
+
+Having an external storage allows us to restore the service easily. Run the below command:
+
+```shell
 ./13_restore_web_service.sh
 ```
 
