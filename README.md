@@ -274,11 +274,16 @@ kubectl get all -n web
 kubectl get pvc --all-namespaces
 ```
 
-Having an external storage allows us to restore the service easily. Run the below command:
+Open a browser http://192.168.0.140.
+
+Having an external storage allows us to restore the service easily. Run the below commands:
 
 ```shell
 ./13_restore_web_service.sh
+kubectl get all -n web
 ```
+
+Open a browser http://192.168.0.140
 
 ### Kubernetes Volume Snapshots
 
