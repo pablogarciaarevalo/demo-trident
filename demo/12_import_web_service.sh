@@ -51,5 +51,5 @@ echo -n $persistentVolumeName > /root/demo-trident/demo/persistent-volume-name.t
 echo ""
 echo "Running a yaml files backup for the namespace web..."
 echo ""
-echo "[root@rhel3 ~]# ./export.sh web"
-./export.sh web
+echo "[root@rhel3 ~]# ./k8s_backup/export.sh web"
+./k8s_backup/export.sh web
