@@ -1,5 +1,5 @@
 # Demo Trident
-Scripts and ansible playbooks to modify the NetApp Lab on Demand [Using Trident with Kubernetes and ONTAP v3.1](https://labondemand.netapp.com/lab/sl10556) and to show the advantages to use ONTAP as a backend storage for Kubernetes and OpenShift. The demo is shown in 6 sections:
+Scripts and ansible playbooks to modify the last NetApp Lab on Demand [Using Trident with Kubernetes and ONTAP](https://labondemand.netapp.com/products/trident-docker-and-kubernetes) and to show the advantages to use ONTAP as a backend storage for Kubernetes and OpenShift. The demo is shown in 6 sections:
 
 * [Module 1: Deployment & Provisioning](#module-1-deployment--provisioning)
 * [Module 2: Kubernetes Storage Provisioning with Trident 101](#module-2-kubernetes-storage-provisioning-with-trident-101)
