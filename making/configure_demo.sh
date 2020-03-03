@@ -45,7 +45,7 @@ kubectl delete sc sf-silver
 tridentctl delete backend BackendForNAS -n trident
 tridentctl delete backend BackendForSolidFire -n trident
 tridentctl uninstall -n trident
-
+tridentctl obliviate alpha-snapshot-crd
 
 echo "#######################################################################################################"
 echo "Install and create a metallb configuration"

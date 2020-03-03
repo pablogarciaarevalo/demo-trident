@@ -4,8 +4,8 @@ echo "##########################################################################
 echo "Download the last Trident package and GitHub Demo Trident repository"
 echo "#######################################################################################################"
 
-wget https://github.com/NetApp/trident/releases/download/v19.10.0/trident-installer-19.10.0.tar.gz
-tar -xf trident-installer-19.10.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v20.01.1/trident-installer-20.01.1.tar.gz
+tar -xf trident-installer-20.01.1.tar.gz
 git clone https://github.com/pablogarciaarevalo/demo-trident
 chmod 744 * demo-trident/demo/*.sh
 
