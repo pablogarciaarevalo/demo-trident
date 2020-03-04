@@ -16,8 +16,10 @@ kubectl apply -f k8s_files/pvcfornas.yaml
 echo "[root@rhel3 ~]# kubectl apply -f k8s_files/pvcforsan.yaml"
 kubectl apply -f k8s_files/pvcforsan.yaml
 read -p "Press any key to continue... " -n1 -s
+echo ""
 echo "[root@rhel3 ~]# kubectl get pvc"
-kubectl get pvc
+kubectl get pv
+echo ""
 echo "[root@rhel3 ~]# kubectl get pv"
 kubectl get pv
 echo ""

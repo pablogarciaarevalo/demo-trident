@@ -78,4 +78,4 @@ echo "##########################################################################
 echo "Installing kubelet, kubeadm and kubectl"
 echo "#######################################################################################################"
 
-yum -y install kubelet-1.15.3 kubeadm-1.15.3 kubectl-1.15.3 --nogpgcheck
+yum -y install kubelet-1.17.3 kubeadm-1.17.3 kubectl-1.17.3 --nogpgcheck
