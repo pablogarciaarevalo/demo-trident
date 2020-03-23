@@ -46,7 +46,6 @@ tridentctl delete backend BackendForNAS -n trident
 tridentctl delete backend BackendForSolidFire -n trident
 tridentctl uninstall -n trident
 
-
 echo "#######################################################################################################"
 echo "Install and create a metallb configuration"
 echo "#######################################################################################################"
@@ -55,12 +54,54 @@ kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.8.3/manifes
 kubectl apply -f k8s_files/metailb-configmap-k8s-prod.yaml
 
 echo "#######################################################################################################"
-echo "Enable the VolumeSnapshotDataSource feature gate in the kube apiserver, controller and scheduller"
+echo "Upgrading to K8s 1.16"
 echo "#######################################################################################################"
 
-yes | cp k8s_files/kube-apiserver.yaml /etc/kubernetes/manifests/
-yes | cp k8s_files/kube-controller-manager.yaml /etc/kubernetes/manifests/
-yes | cp k8s_files/kube-scheduler.yaml /etc/kubernetes/manifests/
+yum install -y kubeadm-1.16.7-0 --disableexcludes=kubernetes
+kubeadm upgrade apply v1.16.7 -y
+yum install -y kubelet-1.16.7-0 kubectl-1.16.7-0 --disableexcludes=kubernetes
+systemctl restart kubelet
+systemctl daemon-reload
+sleep 30s
+
+ssh -o "StrictHostKeyChecking no" root@rhel1 yum install -y kubeadm-1.16.7-0 --disableexcludes=kubernetesclear
+ssh -o "StrictHostKeyChecking no" root@rhel1 kubeadm upgrade node 
+ssh -o "StrictHostKeyChecking no" root@rhel1 yum install -y kubelet-1.16.7-0 kubectl-1.16.7-0 --disableexcludes=kubernetes
+ssh -o "StrictHostKeyChecking no" root@rhel1 systemctl restart kubelet
+ssh -o "StrictHostKeyChecking no" root@rhel1 systemctl daemon-reload
+sleep 30s
+
+ssh -o "StrictHostKeyChecking no" root@rhel2 yum install -y kubeadm-1.16.7-0 --disableexcludes=kubernetesclear
+ssh -o "StrictHostKeyChecking no" root@rhel2 kubeadm upgrade node 
+ssh -o "StrictHostKeyChecking no" root@rhel2 yum install -y kubelet-1.16.7-0 kubectl-1.16.7-0 --disableexcludes=kubernetes
+ssh -o "StrictHostKeyChecking no" root@rhel2 systemctl restart kubelet
+ssh -o "StrictHostKeyChecking no" root@rhel2 systemctl daemon-reload
+sleep 30s
+
+echo "#######################################################################################################"
+echo "Upgrading to K8s 1.17"
+echo "#######################################################################################################"
+
+yum install -y kubeadm-1.17.3-0 --disableexcludes=kubernetes
+kubeadm upgrade apply v1.17.3 -y
+yum install -y kubelet-1.17.3-0 kubectl-1.17.3-0 --disableexcludes=kubernetes
+systemctl restart kubelet
+systemctl daemon-reload
+sleep 30s
+
+ssh -o "StrictHostKeyChecking no" root@rhel1 yum install -y kubeadm-1.17.3-0 --disableexcludes=kubernetesclear
+ssh -o "StrictHostKeyChecking no" root@rhel1 kubeadm upgrade node 
+ssh -o "StrictHostKeyChecking no" root@rhel1 yum install -y kubelet-1.17.3-0 kubectl-1.17.3-0 --disableexcludes=kubernetes
+ssh -o "StrictHostKeyChecking no" root@rhel1 systemctl restart kubelet
+ssh -o "StrictHostKeyChecking no" root@rhel1 systemctl daemon-reload
+sleep 30s
+
+ssh -o "StrictHostKeyChecking no" root@rhel2 yum install -y kubeadm-1.17.3-0 --disableexcludes=kubernetesclear
+ssh -o "StrictHostKeyChecking no" root@rhel2 kubeadm upgrade node 
+ssh -o "StrictHostKeyChecking no" root@rhel2 yum install -y kubelet-1.17.3-0 kubectl-1.17.3-0 --disableexcludes=kubernetes
+ssh -o "StrictHostKeyChecking no" root@rhel2 systemctl restart kubelet
+ssh -o "StrictHostKeyChecking no" root@rhel2 systemctl daemon-reload
+sleep 30s
 
 echo "#######################################################################################################"
 echo "Initialize and configure the second kubernetes cluster"

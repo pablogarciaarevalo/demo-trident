@@ -16,8 +16,8 @@ clear
 echo "[root@rhel3 ~]# cat ./k8s_files/snap-sc.yaml"
 cat ./k8s_files/snap-sc.yaml
 echo ""
-echo "[root@rhel3 ~]# kubectl apply -f ./k8s_files/snap-sc.yaml"
-kubectl apply -f ./k8s_files/snap-sc.yaml
+echo "[root@rhel3 ~]# kubectl apply -f ./k8s_files/snap-sc.yaml -n data-analytics"
+kubectl apply -f ./k8s_files/snap-sc.yaml -n data-analytics
 read -p "Press any key to continue... " -n1 -s
 clear
 

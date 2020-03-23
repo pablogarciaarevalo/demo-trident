@@ -201,7 +201,7 @@ kubectl get pv
 Scaling the statefulset:
 
 ```shell
-kubectl scale --replicas=5 statefulset frontend
+kubectl scale --replicas=5 deployment frontend
 kubectl get pods -o wide
 ```
 
@@ -259,7 +259,7 @@ Open a browser http://192.168.0.140
 Scale the statefulset:
 
 ```shell
-kubectl scale --replicas=5 statefulset web-prod -n web
+kubectl scale --replicas=3 statefulset web-prod -n web
 ```
 
 ### Decoupling application and data with external storage
@@ -318,7 +318,7 @@ kubectl get all -n data-analytics
 ```
 ### Use case 2 for clone
 
-- Objetive: Coming to the previous web example. Cloning for dev/staging
+- Objetive: Coming to the previous web example. Cloning for dev/staging using Rest API
 
 > Go to slide 23
 

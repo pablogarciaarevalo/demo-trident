@@ -1,9 +1,8 @@
-apiVersion: snapshot.storage.k8s.io/v1alpha1
+apiVersion: snapshot.storage.k8s.io/v1beta1
 kind: VolumeSnapshot
 metadata:
  name: snap-datalake
 spec:
- snapshotClassName: csi-snapclass
+ volumeSnapshotClassName: csi-snapclass
  source:
-    name: datalake
-    kind: PersistentVolumeClaim
+    persistentVolumeClaimName: datalake

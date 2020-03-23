@@ -12,13 +12,18 @@ spec:
   selector:
     role: mongo
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mongodb
 spec:
   serviceName: mongodb-service
   replicas: 3
+  selector:
+    matchLabels:
+      role: mongo
+      environment: test
+      replicaset: MainRepSet
   template:
     metadata:
       labels:
