@@ -318,7 +318,7 @@ kubectl get all -n data-analytics
 ```
 ### Use case 2 for clone
 
-- Objetive: Coming to the previous web example. Cloning for dev/staging
+- Objetive: Coming to the previous web example. Cloning for dev/staging using Rest API
 
 > Go to slide 23
 
