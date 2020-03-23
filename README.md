@@ -201,7 +201,7 @@ kubectl get pv
 Scaling the statefulset:
 
 ```shell
-kubectl scale --replicas=5 statefulset frontend
+kubectl scale --replicas=5 deployment frontend
 kubectl get pods -o wide
 ```
 
