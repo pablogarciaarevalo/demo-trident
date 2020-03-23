@@ -259,7 +259,7 @@ Open a browser http://192.168.0.140
 Scale the statefulset:
 
 ```shell
-kubectl scale --replicas=5 statefulset web-prod -n web
+kubectl scale --replicas=3 statefulset web-prod -n web
 ```
 
 ### Decoupling application and data with external storage
