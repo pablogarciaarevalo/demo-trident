@@ -53,16 +53,6 @@ echo "##########################################################################
 kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.8.3/manifests/metallb.yaml
 kubectl apply -f k8s_files/metailb-configmap-k8s-prod.yaml
 
-# Enable by default in K8s 1.17 - https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/
-# 
-# echo "#######################################################################################################"
-# echo "Enable the VolumeSnapshotDataSource feature gate in the kube apiserver, controller and scheduller"
-# echo "#######################################################################################################"
-
-# yes | cp k8s_files/kube-apiserver.yaml /etc/kubernetes/manifests/
-# yes | cp k8s_files/kube-controller-manager.yaml /etc/kubernetes/manifests/
-# yes | cp k8s_files/kube-scheduler.yaml /etc/kubernetes/manifests/
-
 echo "#######################################################################################################"
 echo "Upgrading to K8s 1.16"
 echo "#######################################################################################################"
