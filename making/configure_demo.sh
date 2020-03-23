@@ -120,3 +120,16 @@ ssh -o "StrictHostKeyChecking no" root@rhel4 < ./04_configure_k8s_cluster.sh
 
 chmod 744 * ../demo/*.sh
 chmod 744 * ../demo/k8s_backup/*.sh
+
+echo "#######################################################################################################"
+echo "Enable snapshots for K8s 1.17 or later"
+echo "#######################################################################################################"
+
+# Install Snapshot Beta CRDs per cluster
+kubectl create -f  https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-2.0/config/crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml
+kubectl create -f  https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-2.0/config/crd/snapshot.storage.k8s.io_volumesnapshotcontents.yaml
+kubectl create -f  https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-2.0/config/crd/snapshot.storage.k8s.io_volumesnapshots.yaml
+
+# Install Snapshot Controller per cluster
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-2.0/deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-2.0/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml
