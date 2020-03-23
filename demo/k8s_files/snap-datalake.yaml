@@ -3,8 +3,6 @@ kind: VolumeSnapshot
 metadata:
  name: snap-datalake
 spec:
- deletionPolicy: Delete
- snapshotClassName: csi-snapclass
+ volumeSnapshotClassName: csi-snapclass
  source:
-    name: datalake
-    kind: PersistentVolumeClaim
+    persistentVolumeClaimName: datalake

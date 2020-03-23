@@ -2,5 +2,5 @@ apiVersion: snapshot.storage.k8s.io/v1beta1
 kind: VolumeSnapshotClass
 metadata:
  name: csi-snapclass
-snapshotter: csi.trident.netapp.io
+driver: csi.trident.netapp.io
 deletionPolicy: Delete
