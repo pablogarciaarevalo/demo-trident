@@ -252,7 +252,7 @@ Run the below command to get the kubernetes services IP address:
 kubectl get all -n web
 ```
 
-Open a browser http://192.168.0.140
+Open a browser http://192.168.0.142
 
 > Go to slide 18
 
@@ -274,7 +274,7 @@ kubectl get all -n web
 kubectl get pvc --all-namespaces
 ```
 
-Open a browser http://192.168.0.140.
+Open a browser http://192.168.0.142
 
 Having an external storage allows us to restore the service easily. Run the below commands:
 
@@ -283,7 +283,7 @@ Having an external storage allows us to restore the service easily. Run the belo
 kubectl get all -n web
 ```
 
-Open a browser http://192.168.0.140
+Open a browser http://192.168.0.142
 
 ### Kubernetes Volume Snapshots
 
@@ -370,3 +370,9 @@ Run the below command to show the volume protection with SnapMirror:
 - Objetive: Explain all the tasks done and resume the advantages of use NetApp storage
 
 > Go to slide 26
+
+Open a browser http://192.168.0.141
+- user: admin
+- password admin
+
+Skip to create a new password and choose the Trident dashboard.
