@@ -371,8 +371,6 @@ Run the below command to show the volume protection with SnapMirror:
 
 > Go to slide 26
 
-Open a browser http://192.168.0.141
-. user: admin
-. password admin
+Open a browser http://192.168.0.141 (user: admin / password admin)
 
 Skip to change the password and choose the Trident dashboard.
