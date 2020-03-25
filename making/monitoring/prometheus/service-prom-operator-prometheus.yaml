@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: prometheus-operator-prometheus
+    chart: prometheus-operator-8.12.3
+    heritage: Helm
+    release: prom-operator
+    self-monitor: "true"
+  name: prom-operator-prometheus-o-prometheus
+  namespace: monitoring
+spec:
+  ports:
+  - name: web
+    port: 80
+    protocol: TCP
+    targetPort: 9090
+  selector:
+    app: prometheus
+    prometheus: prom-operator-prometheus-o-prometheus
+  sessionAffinity: None
+  type: LoadBalancer
