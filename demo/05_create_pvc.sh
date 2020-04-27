@@ -18,7 +18,7 @@ kubectl apply -f k8s_files/pvcforsan.yaml
 read -p "Press any key to continue... " -n1 -s
 echo ""
 echo "[root@rhel3 ~]# kubectl get pvc"
-kubectl get pv
+kubectl get pvc
 echo ""
 echo "[root@rhel3 ~]# kubectl get pv"
 kubectl get pv
