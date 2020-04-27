@@ -8,12 +8,12 @@ yum -y install ansible
 yum -y install python-pip 
 pip install netapp-lib --user
 
-cat <<EOT >> /etc/ansible/hosts
+cat <<EOF >> /etc/ansible/hosts
 rhel6
 [k8sservers]
 rhel1
 rhel2
-EOT
+EOF
 
 export ANSIBLE_HOST_KEY_CHECKING=False
 
