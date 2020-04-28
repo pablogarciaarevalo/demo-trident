@@ -1,6 +1,20 @@
 #!/bin/bash
 
 echo "#######################################################################################################"
+echo "Include CentOS repository"
+echo "#######################################################################################################"
+
+cat <<EOF >> /etc/yum.repos.d/centos1.repo
+[centos]
+name=CentOS-7
+baseurl=http://ftp.heanet.ie/pub/centos/7/os/x86_64/
+enabled=1
+gpgcheck=1
+gpgkey=http://ftp.heanet.ie/pub/centos/7/os/x86_64/RPM-GPG-KEY-CentOS-7
+EOF
+yum repolist
+
+echo "#######################################################################################################"
 echo "Installing Ansible & NetApp library"
 echo "#######################################################################################################"
 
