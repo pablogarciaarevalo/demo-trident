@@ -7,10 +7,11 @@ echo "[root@rhel3 ~]# tar -xf trident-installer-20.01.1.tar.gz"
 tar -xf trident-installer-20.01.1.tar.gz
 echo "[root@rhel3 ~]# cd trident-installer"
 cd trident-installer
-echo "[root@rhel3 ~]# ./tridentctl obliviate alpha-snapshot-crd"
-./tridentctl obliviate alpha-snapshot-crd
-echo "[root@rhel3 ~]# ./tridentctl install -n trident"
-./tridentctl install -n trident
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/demo-trident/demo/trident-installer:/root/bin
+echo "[root@rhel3 ~]# tridentctl obliviate alpha-snapshot-crd"
+tridentctl obliviate alpha-snapshot-crd
+echo "[root@rhel3 ~]# tridentctl install -n trident"
+tridentctl install -n trident
 
 echo "Enabling snapshots for K8s 1.17 or later"
 
