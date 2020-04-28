@@ -6,6 +6,7 @@ echo "##########################################################################
 
 yum -y install ansible
 yum -y install python-pip 
+pip install --upgrade pip
 pip install netapp-lib --user
 
 cat <<EOF >> /etc/ansible/hosts
