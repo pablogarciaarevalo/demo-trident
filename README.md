@@ -52,7 +52,7 @@ Run the below commands and explain the Ansible playbook to automate the ONTAP pr
 
 ### Install NetApp Trident
 
-- Objetive: Show the steps to install NetApp Trident.
+- Objetive: Show the steps to deploy NetApp Trident using the Trident Operator.
 
 > Go to slide 4
 
