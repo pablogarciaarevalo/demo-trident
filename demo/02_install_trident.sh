@@ -1,17 +1,59 @@
 #!/bin/bash
 
 clear
-echo "[root@rhel3 ~]# wget https://github.com/NetApp/trident/releases/download/v20.01.1/trident-installer-20.01.1.tar.gz"
-wget https://github.com/NetApp/trident/releases/download/v20.01.1/trident-installer-20.01.1.tar.gz
-echo "[root@rhel3 ~]# tar -xf trident-installer-20.01.1.tar.gz"
-tar -xf trident-installer-20.01.1.tar.gz
+echo "[root@rhel3 ~]# wget https://github.com/NetApp/trident/releases/download/v20.04.0/trident-installer-20.04.0.tar.gz"
+wget https://github.com/NetApp/trident/releases/download/v20.04.0/trident-installer-20.04.0.tar.gz
+echo "[root@rhel3 ~]# tar -xf trident-installer-20.04.0.tar.gz"
+tar -xf trident-installer-20.04.0.tar.gz
 echo "[root@rhel3 ~]# cd trident-installer"
 cd trident-installer
-PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/demo-trident/demo/trident-installer:/root/bin
+
 echo "[root@rhel3 ~]# tridentctl obliviate alpha-snapshot-crd"
 tridentctl obliviate alpha-snapshot-crd
-echo "[root@rhel3 ~]# tridentctl install -n trident"
-tridentctl install -n trident
+
+# Installing Trident using the operator
+
+echo "[root@rhel3 ~]# kubectl create -f deploy/crds/trident.netapp.io_tridentprovisioners_crd_post1.16.yaml"
+kubectl create -f deploy/crds/trident.netapp.io_tridentprovisioners_crd_post1.16.yaml
+echo "[root@rhel3 ~]# kubectl create -f deploy/bundle.yaml"
+kubectl create -f deploy/bundle.yaml
+echo ""
+read -p "Press any key to continue... " -n1 -s
+clear
+
+# check the status of the operator
+echo "[root@rhel3 ~]# kubectl get all -n trident"
+kubectl get all -n trident
+echo ""
+read -p "Press any key to continue... " -n1 -s
+clear
+
+# Install trident
+echo "[root@rhel3 ~]# kubectl create -f deploy/crds/tridentprovisioner_cr.yaml"
+kubectl create -f deploy/crds/tridentprovisioner_cr.yaml
+echo "[root@rhel3 ~]# kubectl get tprov -n trident"
+kubectl get tprov -n trident
+echo ""
+read -p "Press any key to continue... " -n1 -s
+clear
+
+echo "[root@rhel3 ~]# kubectl describe tprov trident -n trident"
+kubectl describe tprov trident -n trident
+echo ""
+read -p "Press any key to continue... " -n1 -s
+clear
+
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/demo-trident/demo/trident-installer:/root/bin
+
+# show trident
+echo "[root@rhel3 ~]# tridentctl version -n trident"
+tridentctl version -n trident
+echo "[root@rhel3 ~]# kubectl get all -n trident"
+kubectl get all -n trident
+echo ""
+read -p "Press any key to continue... " -n1 -s
+clear
+
 
 echo "Enabling snapshots for K8s 1.17 or later"
 
