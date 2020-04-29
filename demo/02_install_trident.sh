@@ -7,7 +7,7 @@ echo "[root@rhel3 ~]# tar -xf trident-installer-20.04.0.tar.gz"
 tar -xf trident-installer-20.04.0.tar.gz
 echo "[root@rhel3 ~]# cd trident-installer"
 cd trident-installer
-PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/demo-trident/demo/trident-installer:/root/bin
+
 echo "[root@rhel3 ~]# tridentctl obliviate alpha-snapshot-crd"
 tridentctl obliviate alpha-snapshot-crd
 
@@ -43,11 +43,13 @@ echo ""
 read -p "Press any key to continue... " -n1 -s
 clear
 
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/demo-trident/demo/trident-installer:/root/bin
+
 # show trident
-echo "[root@rhel3 ~]# tridentctl -n trident version"
-tridentctl -n trident version
-echo "[root@rhel3 ~]# kubectl get pods -n trident"
-kubectl get pods -n trident
+echo "[root@rhel3 ~]# tridentctl version -n trident"
+tridentctl version -n trident
+echo "[root@rhel3 ~]# kubectl get all -n trident"
+kubectl get all -n trident
 echo ""
 read -p "Press any key to continue... " -n1 -s
 clear
