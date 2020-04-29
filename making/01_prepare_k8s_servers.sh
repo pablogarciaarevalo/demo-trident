@@ -6,7 +6,7 @@ echo "##########################################################################
 
 wget https://github.com/NetApp/trident/releases/download/v20.04.0/trident-installer-20.04.0.tar.gz
 tar -xf trident-installer-20.04.0.tar.gz
-git clone https://github.com/pablogarciaarevalo/demo-trident -b K8s_1.18.0-Trident_20.04
+git clone https://github.com/pablogarciaarevalo/demo-trident
 chmod 744 * demo-trident/demo/*.sh
 
 echo "#######################################################################################################"
