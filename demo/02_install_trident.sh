@@ -8,6 +8,8 @@ tar -xf trident-installer-20.04.0.tar.gz
 echo "[root@rhel3 ~]# cd trident-installer"
 cd trident-installer
 
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/demo-trident/demo/trident-installer:/root/bin
+
 echo "[root@rhel3 ~]# tridentctl obliviate alpha-snapshot-crd"
 tridentctl obliviate alpha-snapshot-crd
 
@@ -42,8 +44,6 @@ kubectl describe tprov trident -n trident
 echo ""
 read -p "Press any key to continue... " -n1 -s
 clear
-
-PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/demo-trident/demo/trident-installer:/root/bin
 
 # show trident
 echo "[root@rhel3 ~]# tridentctl version -n trident"
