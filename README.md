@@ -56,10 +56,10 @@ Run the below commands and explain the Ansible playbook to automate the ONTAP pr
 
 > Go to slide 4
 
-Run the below command:
+Run the below command (execute using 'dot space dot slash' to run the script in the current shell without forking a sub shell):
 
 ```shell
-./02_install_trident.sh
+. ./02_install_trident.sh
 ```
 
 ### Create NetApp Trident backend
