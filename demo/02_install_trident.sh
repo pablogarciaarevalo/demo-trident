@@ -46,17 +46,13 @@ read -p "Press any key to continue... " -n1 -s
 clear
 
 # show trident
-echo "[root@rhel3 ~]# tridentctl version -n trident"
-tridentctl version -n trident
 echo "[root@rhel3 ~]# kubectl get all -n trident"
 kubectl get all -n trident
 echo ""
 read -p "Press any key to continue... " -n1 -s
 clear
 
-
 echo "Enabling snapshots for K8s 1.17 or later"
-
 # Install Snapshot Beta CRDs per cluster
 echo "[root@rhel3 ~]# kubectl create -f  https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-2.0/config/crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml"
 kubectl create -f  https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-2.0/config/crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml
@@ -70,3 +66,7 @@ echo "[root@rhel3 ~]# kubectl apply -f https://raw.githubusercontent.com/kuberne
 kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-2.0/deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
 echo "[root@rhel3 ~]# kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-2.0/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml"
 kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-2.0/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml
+echo ""
+cd ..
+echo "[root@rhel3 ~]# tridentctl version -n trident"
+tridentctl version -n trident
