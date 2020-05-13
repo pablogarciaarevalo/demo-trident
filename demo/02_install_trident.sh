@@ -8,7 +8,7 @@ tar -xf trident-installer-20.04.0.tar.gz
 echo "[root@rhel3 ~]# cd trident-installer"
 cd trident-installer
 
-PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/demo-trident/demo/trident-installer:/root/bin
+source ./new_path.sh
 
 # Run twice the obliviate alpha-snapshot-crd command due to a known issue
 echo "[root@rhel3 ~]# tridentctl obliviate alpha-snapshot-crd"
@@ -69,6 +69,6 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snaps
 echo "[root@rhel3 ~]# kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-2.0/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml"
 kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-2.0/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml
 echo ""
-cd ..
+
 echo "[root@rhel3 ~]# tridentctl version -n trident"
 tridentctl version -n trident
