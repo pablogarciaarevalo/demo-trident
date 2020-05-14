@@ -5,6 +5,27 @@ echo "Changing Trident path"
 echo "#######################################################################################################"
 
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/demo-trident/demo/trident-installer:/root/bin
+export PATH
+
+cat <<EOF > ~/.bash_profile
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+
+# add path for tridentctl
+PATH=$PATH:/root/demo-trident/demo/trident-installer
+
+# User specific environment and startup programs
+PATH=$PATH:$HOME/bin
+
+export PATH
+
+export KUBECONFIG=$HOME/.kube/config
+
+EOF
 
 echo "#######################################################################################################"
 echo "Include CentOS repository"
