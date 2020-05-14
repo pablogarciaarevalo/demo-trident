@@ -8,8 +8,6 @@ tar -xf trident-installer-20.04.0.tar.gz
 echo "[root@rhel3 ~]# cd trident-installer"
 cd trident-installer
 
-source ./new_path.sh
-
 # Run twice the obliviate alpha-snapshot-crd command due to a known issue
 echo "[root@rhel3 ~]# tridentctl obliviate alpha-snapshot-crd"
 tridentctl obliviate alpha-snapshot-crd

@@ -16,7 +16,7 @@ Open the putty console and connect to the kubernetes master node root@rhel3. Run
 git clone https://github.com/pablogarciaarevalo/demo-trident
 cd demo-trident/making
 chmod 744 *.sh
-./configure_demo.sh
+. ./configure_demo.sh
 cd ../demo/
 ```
 
