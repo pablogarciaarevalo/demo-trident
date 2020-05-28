@@ -1,31 +1,5 @@
 #!/bin/bash
 
-echo "#######################################################################################################"
-echo "Changing Trident path"
-echo "#######################################################################################################"
-
-PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/demo-trident/demo/trident-installer:/root/bin
-export PATH
-
-cat <<EOF > ~/.bash_profile
-# .bash_profile
-
-# Get the aliases and functions
-if [ -f ~/.bashrc ]; then
-        . ~/.bashrc
-fi
-
-# add path for tridentctl
-PATH=$PATH:/root/demo-trident/demo/trident-installer
-
-# User specific environment and startup programs
-PATH=$PATH:$HOME/bin
-
-export PATH
-
-export KUBECONFIG=$HOME/.kube/config
-
-EOF
 
 echo "#######################################################################################################"
 echo "Include CentOS repository"
@@ -144,7 +118,7 @@ ssh -o "StrictHostKeyChecking no" root@rhel2 yum install -y kubelet-1.17.3-0 kub
 ssh -o "StrictHostKeyChecking no" root@rhel2 systemctl restart kubelet
 ssh -o "StrictHostKeyChecking no" root@rhel2 systemctl daemon-reload
 sleep 30s
-
+e
 echo "#######################################################################################################"
 echo "Upgrading to K8s 1.18"
 echo "#######################################################################################################"
@@ -232,3 +206,31 @@ kubectl apply -f /root/demo-trident/making/monitoring/grafana/deployment-prom-op
 # Modify the Grafana GUI password setting 'admin'
 
 kubectl patch secret -n monitoring prom-operator-grafana -p='{"data":{"admin-password": "YWRtaW4="}}' -v=1
+
+
+echo "#######################################################################################################"
+echo "Changing Trident path"
+echo "#######################################################################################################"
+
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/demo-trident/demo/trident-installer:/root/bin
+export PATH
+
+cat <<EOF > ~/.bash_profile
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+
+# add path for tridentctl
+PATH=$PATH:/root/demo-trident/demo/trident-installer
+
+# User specific environment and startup programs
+PATH=$PATH:$HOME/bin
+
+export PATH
+
+export KUBECONFIG=$HOME/.kube/config
+
+EOF
