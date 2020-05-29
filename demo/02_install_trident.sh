@@ -13,41 +13,20 @@ echo "[root@rhel3 ~]# tridentctl obliviate alpha-snapshot-crd"
 tridentctl obliviate alpha-snapshot-crd
 tridentctl obliviate alpha-snapshot-crd
 
-# Installing Trident using the operator
+# Installing Trident without the operator
 
-echo "[root@rhel3 ~]# kubectl create -f deploy/crds/trident.netapp.io_tridentprovisioners_crd_post1.16.yaml"
-kubectl create -f deploy/crds/trident.netapp.io_tridentprovisioners_crd_post1.16.yaml
-echo "[root@rhel3 ~]# kubectl create -f deploy/bundle.yaml"
-kubectl create -f deploy/bundle.yaml
+echo "[root@rhel3 ~]# tridentctl install -n trident"
+tridentctl install -n trident
 echo ""
-read -p "Press any key to continue... " -n1 -s
-clear
-
-# check the status of the operator
 echo "[root@rhel3 ~]# kubectl get all -n trident"
 kubectl get all -n trident
 echo ""
 read -p "Press any key to continue... " -n1 -s
 clear
 
-# Install trident
-echo "[root@rhel3 ~]# kubectl create -f deploy/crds/tridentprovisioner_cr.yaml"
-kubectl create -f deploy/crds/tridentprovisioner_cr.yaml
-echo "[root@rhel3 ~]# kubectl get tprov -n trident"
-kubectl get tprov -n trident
-echo ""
-read -p "Press any key to continue... " -n1 -s
-clear
-
-echo "[root@rhel3 ~]# kubectl describe tprov trident -n trident"
-kubectl describe tprov trident -n trident
-echo ""
-read -p "Press any key to continue... " -n1 -s
-clear
-
-# show trident
-echo "[root@rhel3 ~]# kubectl get all -n trident"
-kubectl get all -n trident
+# Show Trident version
+echo "[root@rhel3 ~]# tridentctl version -n trident"
+tridentctl version -n trident
 echo ""
 read -p "Press any key to continue... " -n1 -s
 clear
@@ -67,6 +46,3 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snaps
 echo "[root@rhel3 ~]# kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-2.0/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml"
 kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-2.0/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml
 echo ""
-
-echo "[root@rhel3 ~]# tridentctl version -n trident"
-tridentctl version -n trident
