@@ -1,0 +1,190 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: todo-app
+  labels:
+    name: todo-app
+
+# Objects for the web tier
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: todo-app-3tier-web
+  name: todo-app-3tier-web
+  namespace: todo-app
+spec:
+  ports:
+  - name: 8080-tcp
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: todo-app-3tier-web
+  type: ClusterIP
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-todo-app-web
+  namespace: todo-app
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: nas-silver
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: todo-app-3tier-web
+  name: todo-app-3tier-web
+  namespace: todo-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-app-3tier-web
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: todo-app-3tier-web
+    spec:
+      containers:
+      - image: pablogarciaarevalo/hello-world-persistent-data:latest
+        name: todo-app-3tier-web
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        volumeMounts:
+          - name: pvc-todo-app-web
+            mountPath: /data
+      volumes:
+      - name: pvc-todo-app-web
+        persistentVolumeClaim:
+          claimName: pvc-todo-app-web
+
+# Objects for the api tier
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: todo-app-3tier-api
+  name: todo-app-3tier-api
+  namespace: todo-app
+spec:
+  ports:
+  - name: 8080-tcp
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: todo-app-3tier-web
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: todo-app-3tier-api
+  name: todo-app-3tier-api
+  namespace: todo-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-app-3tier-api
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: todo-app-3tier-api
+    spec:
+      containers:
+      - image: pablogarciaarevalo/hello-world-persistent-data:latest
+        name: todo-app-3tier-api
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+
+# Objects for the backend tier
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: todo-app-3tier-backend
+  name: todo-app-3tier-backend
+  namespace: todo-app
+spec:
+  ports:
+  - name: 8080-tcp
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: todo-app-3tier-backend
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: todo-app-3tier-backend
+  name: todo-app-3tier-backend
+  namespace: todo-app
+spec:
+  serviceName: todo-app-3tier-backend
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-app-3tier-backend
+  template:
+    metadata:
+      labels:
+        app: todo-app-3tier-backend
+    spec:
+      containers:
+      - image: pablogarciaarevalo/hello-world-persistent-data:latest
+        name: todo-app-3tier-backend
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        volumeMounts:
+          - name: pvc-todo-app-backend
+            mountPath: /data
+  volumeClaimTemplates:
+  - metadata:
+      name: pvc-todo-app-backend
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
+      storageClassName: san

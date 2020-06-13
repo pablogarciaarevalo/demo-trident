@@ -1,7 +1,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: persistent-volume-claim-san
+  name: pvc-rwo
   annotations:
      trident.netapp.io/reclaimPolicy: "Delete"
 spec:

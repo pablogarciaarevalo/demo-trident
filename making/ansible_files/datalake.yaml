@@ -9,19 +9,20 @@
     netapp_hostname: 192.168.0.101
     netapp_username: admin
     netapp_password: Netapp1!
-    source_volume_to_protect: <replace_here>
   tasks:
     - name: Create FlexVol
       na_ontap_volume:
         state: present
         name: datalake
+        volume_security_style: unix
+        unix_permissions: 777
         is_infinite: False
         aggregate_name: aggr2
         space_guarantee: none
         size: 1
         size_unit: tb
         vserver: svm1
-        junction_path: /data_lake
+        junction_path: /datalake
         snapshot_policy: none
         hostname: "{{ netapp_hostname }}"
         username: "{{ netapp_username }}"

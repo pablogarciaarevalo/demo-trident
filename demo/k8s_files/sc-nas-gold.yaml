@@ -8,4 +8,5 @@ parameters:
   media: "ssd"
   provisioningType: "thick"
   encryption: "true"
+reclaimPolicy: Retain
 allowVolumeExpansion: true

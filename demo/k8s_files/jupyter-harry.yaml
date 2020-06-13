@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: harry
+    namespace: data-analytics
+spec:
+  ports:
+  - port: 80
+    name: jupyter-harry
+    protocol: TCP
+    targetPort: 8888
+  type: LoadBalancer
+  selector:
+    app: jupyter-harry
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: jupyter-harry
+  namespace: data-analytics
+  labels:
+    app: jupyter-harry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jupyter-harry
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: jupyter-harry
+        lab: jupyter
+    spec:
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: clone-datalake-harry
+      containers:
+      - name: notebook
+        image: jupyter/datascience-notebook:latest
+        ports:
+        - containerPort: 8888
+          protocol: TCP
+        command: ["start-notebook.sh"]
+        args: ["--NotebookApp.token=''"]          
+        resources:
+          limits:
+            memory: 512Mi
+        volumeMounts:
+        - name: data
+          mountPath: "/home/jovyan"
+        env:
+        - name: JUPYTER_ENABLE_LAB
+          value: 'yes'
+      automountServiceAccountToken: false

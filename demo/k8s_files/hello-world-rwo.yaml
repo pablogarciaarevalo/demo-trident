@@ -1,0 +1,54 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hello-world-rwo
+  name: hello-world-rwo
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-world-rwo
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: hello-world-rwo
+    spec:
+      containers:
+      - name: hello-world-rwo
+        image: pablogarciaarevalo/hello-world-persistent-data:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        volumeMounts:
+          - name: my-pvc
+            mountPath: /data
+      volumes:
+      - name: my-pvc
+        persistentVolumeClaim:
+          claimName: pvc-rwo
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: hello-world-rwo
+spec:
+  ports:
+  - port: 80
+    name: hello-world-rwo
+    protocol: TCP
+    targetPort: 8080
+  type: LoadBalancer
+  selector:
+    app: hello-world-rwo

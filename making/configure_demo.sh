@@ -50,6 +50,14 @@ cp -r netapp_website/v1/* /mnt/web_content
 docker -H ssh://root@rhel6 run --name docker-nginx -p 80:80 -d -v /mnt/web_content:/usr/share/nginx/html nginx
 
 echo "#######################################################################################################"
+echo "Configure the datalake"
+echo "#######################################################################################################"
+
+mkdir /mnt/datalake
+mount -t nfs 192.168.0.132:/datalake /mnt/datalake
+cp -r csv_files/* /mnt/datalake
+
+echo "#######################################################################################################"
 echo "Delete the configured K8S Storage Classes and backend, and uninstall trident"
 echo "#######################################################################################################"
 

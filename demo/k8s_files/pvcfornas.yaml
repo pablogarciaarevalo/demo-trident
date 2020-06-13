@@ -1,7 +1,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: persistent-volume-claim-nas
+  name: pvc-rwm
   annotations:
      trident.netapp.io/snapshotPolicy: "default"
      trident.netapp.io/snapshotDirectory: "true"

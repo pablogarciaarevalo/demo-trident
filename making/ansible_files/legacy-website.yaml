@@ -9,7 +9,6 @@
     netapp_hostname: 192.168.0.101
     netapp_username: admin
     netapp_password: Netapp1!
-    source_volume_to_protect: <replace_here>
   tasks:
     - name: Create FlexVol
       na_ontap_volume:
