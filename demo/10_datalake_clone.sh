@@ -1,5 +1,11 @@
 #!/bin/bash
 
+
+clear
+echo "[root@rhel3 ~]# ls /mnt/datalake/"
+ls /mnt/datalake/
+echo ""
+
 clear
 echo "[root@rhel3 ~]# kubectl create namespace data-analytics"
 kubectl create namespace data-analytics
