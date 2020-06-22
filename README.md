@@ -89,8 +89,8 @@ Run the below commands:
 | PV Access Modes | Abbreviated |    Volume    | As known as |
 | --------------- |:-----------:| ------------ | ----------- |
 |  ReadWriteMany  |     RWX     |      NFS     |     NAS     |
-|  ReadWriteOnce  |     RWO     | iSCSI or NFS |     SAN     |
-|  ReadOnlyMany   |     ROX     | iSCSI or NFS |             |
+|  ReadWriteOnce  |     RWO     | iSCSI or NFS |  NAS or SAN |
+|  ReadOnlyMany   |     ROX     | iSCSI or NFS |  NAS or SAN |
 
 > Go to slide 5
 
@@ -109,55 +109,15 @@ Run the below command:
 Run the below command, noting that the YAML files are scheduling manually the Pods in the node rhel1 instead of using the kubernetes scheduler.
 
 ```shell
-./06_create_pods.sh
-
-kubectl exec -it pvpod-nas1 mount | grep /data
-kubectl exec -it pvpod-san1 mount | grep /data
+./06_create_apps.sh
 ```
+Open a browser http://192.168.0.142 to show the POD mounting the previous Read-Write-Many Persistent Volume.
 
-### Scale the Pods manually
+<img src="demo/images/hello-world-rwm.png">
 
-- Objetive: Run similar pods binding the same PV on the same kubernetes worker and different workers.
+Open a browser http://192.168.0.143 to show the POD mounting the previous Read-Write-Once Persistent Volume.
 
-> Go to slide 7
-
-Run the below commands:
-
-```shell
-kubectl get pods -o wide
-
-./07_scale_pods_manually.sh
-
-kubectl get pods -o wide
-```
-
-All the pods with RWM PV will be running regardless of the worker on which they are scheduled. Only the pods with RWO scheduled on the worker rhel1 will be running. There is a Multi-Attach error for the RWO volume mount in the pods which are not scheduled in the worker rhel1. The reason is because ReadWriteMany (RMX) access is for workers not for pods. Focus on that usually the applications need RWM or RWO access. It depends on the application but K8S needs unified storage.
-
-> Go to slide 8
-
-### Sidecar Pod
-
-- Objetive: Run a pod with two containers, the first one writes data in a shared volume and the second one reads the data. ReadWriteMany access mode should fit better.
-
-> Go to slide 9
-
-Run the below command:
-
-```shell
-./08_sidecar_pod.sh
-```
-
-### PVC RWO using NAS
-
-- Objetive: Read Write Only access mode can be block (iSCSI) or file (NFS). Some applications don't run fast in NFS, like Kafka, but it's not an issue in the NAS side. A NAS is not slower.
-
-> Go to slide 10
-
-Run the below command:
-
-```shell
-./09_pod_pvc_rwo.sh
-```
+<img src="demo/images/hello-world-rwo.png">
 
 ## Module 3: New tier application architecture with Kubernetes
 
@@ -165,66 +125,50 @@ Run the below command:
 
 - Objetive: Data storage is not really important, the applications are. But Trident with the NetApp storage provides some advantages with the ONTAP features that allows the application works better (efficiency, scale, security, portability,...).
 
-> Go to slide 11
+> Go to slide 7
 
-Set focus on the microservices Frontend and Cache (Redis), which can use RWM PV and RWO PV respectively. Again, K8S needs unified storage.
+Set focus on the microservices Frontend and Cache (Redis), which can use RWM PV and RWO PV respectively. Again, K8s needs unified storage.
 
 ### Kubernetes controllers: Deployment vs StatefulSet
 
 - Objetive: Explain the differences between Deployment and StatefulSet. Like a Deployment, a StatefulSet manages Pods that are based on an identical container spec. Unlike a Deployment, a StatefulSet maintains a sticky identity for each of their Pods. These pods are created from the same spec, but are not interchangeable: each has a persistent identifier that it maintains across any rescheduling.
 
-> Go to slide 12
+> Go to slide 8
 
-Keys:
+StatefulSet keys:
 - Stable, unique network identifiers
 - Stable, persistent storage
 - Ordered, graceful deployment and scaling
 - Ordered, automated rolling updates
 
 
-### Create Kubernetes dummy frontend statefulset with ReadWriteMany Persistent Volume
+### Create Kubernetes applications based on a 3-Tier architecture
 
-- Objetive: Show how to create and scale a frontend deployment accessing a single ReadWriteMany Persistent Volume (NFS)
+- Objetive: Show how to create and scale a frontend deployment accessing a single Read-Write-Many Persistent Volume (NFS) and create and scale a backend statefulset accessing several Read-Write-Once Persistent Volume (iSCSI). 
 
-> Go to slide 13 and 14
+> Go to slide 9
 
 Run the below commands:
 
 ```shell
-./10_create_frontend_service.sh
+./07_todo_app_3tier.sh
 
-kubectl get pods -o wide
-kubectl get pvc
+kubectl get pods,pvc -n todo-app
 kubectl get pv
 ```
 
-Scaling the statefulset:
+Scaling the frontend deployment:
 
 ```shell
-kubectl scale --replicas=5 deployment frontend
-kubectl get pods -o wide
+kubectl scale --replicas=2 deployment todo-app-3tier-web -n todo-app
+kubectl get pods,pvc -n todo-app
 ```
 
-### Create Kubernetes dummy backend statefulset with ReadWriteOnce Persistent Volume
-
-- Objetive: Show how to create and scale a backend deployment accessing a single ReadWriteOnce Persistent Volume (iSCSI)
-
-> Go to slide 15
-
-Run the below commands:
+Scaling the backend statefulset:
 
 ```shell
-./11_create_backend_service.sh
-
-kubectl get pods
-kubectl get pvc
-```
-
-Scaling the statefulset:
-
-```shell
-kubectl scale --replicas=5 statefulset mongodb
-kubectl get pods 
+kubectl scale --replicas=2 statefulset todo-app-3tier-backend -n todo-app
+kubectl get pods,pvc -n todo-app
 ```
 
 ## Module 4: Advanced NetApp Trident features
