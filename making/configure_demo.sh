@@ -176,44 +176,44 @@ echo "##########################################################################
 
 # Install Helm
 
-wget https://get.helm.sh/helm-v3.0.3-linux-amd64.tar.gz
-tar xzvf helm-v3.0.3-linux-amd64.tar.gz
-cp linux-amd64/helm /usr/bin/
+# wget https://get.helm.sh/helm-v3.0.3-linux-amd64.tar.gz
+# tar xzvf helm-v3.0.3-linux-amd64.tar.gz
+# cp linux-amd64/helm /usr/bin/
 
 # Install Prometheus and GRafana using the Prometheus operator
 
-kubectl create namespace monitoring
-helm repo add stable https://kubernetes-charts.storage.googleapis.com
-helm repo update
-helm install prom-operator stable/prometheus-operator --namespace monitoring
+# kubectl create namespace monitoring
+# helm repo add stable https://kubernetes-charts.storage.googleapis.com
+# helm repo update
+# helm install prom-operator stable/prometheus-operator --namespace monitoring
 
 # Recreate the Prometheus service using a LoadBalancer type
 
-kubectl delete -n monitoring svc prom-operator-prometheus-o-prometheus
-kubectl apply -f /root/demo-trident/making/monitoring/prometheus/service-prom-operator-prometheus.yaml
+# kubectl delete -n monitoring svc prom-operator-prometheus-o-prometheus
+# kubectl apply -f /root/demo-trident/making/monitoring/prometheus/service-prom-operator-prometheus.yaml
 
 # Create a Service Monitor for Trident
 
-kubectl apply -f /root/demo-trident/making/monitoring/prometheus/servicemonitor.yaml
+# kubectl apply -f /root/demo-trident/making/monitoring/prometheus/servicemonitor.yaml
 
 # Recreate the Grafana service using a LoadBalancer type
 
-kubectl delete -n monitoring svc prom-operator-grafana
-kubectl apply -f /root/demo-trident/making/monitoring/grafana/service-prom-operator-grafana.yaml
+# ubectl delete -n monitoring svc prom-operator-grafana
+# kubectl apply -f /root/demo-trident/making/monitoring/grafana/service-prom-operator-grafana.yaml
 
 # Create configmap resources with the Grafana datasource and dashboards
 
-kubectl apply -f /root/demo-trident/making/monitoring/grafana/cm-grafana-datasources.yaml
-kubectl create configmap cm-grafana-dashboard -n monitoring --from-file=/root/demo-trident/making/monitoring/grafana/dashboards/
+# kubectl apply -f /root/demo-trident/making/monitoring/grafana/cm-grafana-datasources.yaml
+# kubectl create configmap cm-grafana-dashboard -n monitoring --from-file=/root/demo-trident/making/monitoring/grafana/dashboards/
 
 # Recreate the Grafana deployment using the previuos configmap resources to avoid manual configuration
 
-kubectl delete deployment prom-operator-grafana -n monitoring
-kubectl apply -f /root/demo-trident/making/monitoring/grafana/deployment-prom-operator-grafana.yaml
+# kubectl delete deployment prom-operator-grafana -n monitoring
+# kubectl apply -f /root/demo-trident/making/monitoring/grafana/deployment-prom-operator-grafana.yaml
 
 # Modify the Grafana GUI password setting 'admin'
 
-kubectl patch secret -n monitoring prom-operator-grafana -p='{"data":{"admin-password": "YWRtaW4="}}' -v=1
+# kubectl patch secret -n monitoring prom-operator-grafana -p='{"data":{"admin-password": "YWRtaW4="}}' -v=1
 
 
 echo "#######################################################################################################"
