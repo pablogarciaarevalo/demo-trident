@@ -9,7 +9,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
-  storageClassName: nas-silver
+  storageClassName: storage-class-nas
   resources:
     requests:
       storage: 1Gi
